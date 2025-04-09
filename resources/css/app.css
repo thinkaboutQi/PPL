@@ -1,0 +1,3 @@
+.nav-link:hover {
+    color: var(--bs-nav-link-hover-color); /* Biasanya biru atau abu terang */
+  }
