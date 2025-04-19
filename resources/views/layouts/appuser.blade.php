@@ -13,18 +13,22 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
     
 
     <!-- Style BS -->
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+   <!-- Custom page styles -->
+   @stack('styles')
     <!-- Scripts -->
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @livewireStyles    
 </head>
 <body class="font-[Poppins]">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
+    <nav class="navbar navbar-expand-md navbar-light sticky-top bg-transparent shadow-none" style="z-index: 10; backdrop-filter: blur(10px);">
             <div class="container">
                 <a class="navbar-brand fw-bold m-0" style="color: #1E388D;" href="{{ url('/') }}">
                     <!-- {{ config('app.name', 'Laravel') }} -->
@@ -43,16 +47,18 @@
                 <!-- Middle of Navbar -->
                     <ul class="navbar-nav mx-auto" style="font-family: 'Poppins', sans-serif;">
                                 <li class="nav-item">
-                                    <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ url('/#home') }}">Home</a>
+                                    <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ route('home') }}">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/#order') }}">Order</a>
-                                </li>
+        <a class="nav-link {{ request()->is('order') ? 'text-blue-700 border-b-2 border-blue-700 pb-1' : '' }}" href="{{ route('order') }}">
+            Order
+        </a>
+    </li>
                             <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
+                                    <a class="nav-link" href="{{ url('/') }}">About Us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
+                                    <a class="nav-link" href="{{ url('/') }}">Contact</a>
                                 </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -86,10 +92,9 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <main class="min-h-screen relative">
+    @yield('content')
+</main>
     </div>
     @livewireScripts
     <!-- AOS JS -->
@@ -100,5 +105,7 @@
     once: true,
   });
 </script>
+ <!-- Custom Page Scripts -->
+ @stack('scripts')
 </body>
 </html>

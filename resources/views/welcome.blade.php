@@ -30,26 +30,73 @@
 <section id="order" class="py-5 text-center d-flex align-items-center" style="scroll-margin-top: 150px; background: #FFF">
     <div class="container">
         <div>
-        <span class="px-4 py-2 fw-semibold" style="border: 2px solid #1E388D; border-radius: 50px; color: #1E388D; display: inline-block;">
-        Tersedia Di Berbagai Daerah!
-    </span>
+            <span class="px-4 py-2 fw-semibold" style="border: 2px solid #1E388D; border-radius: 50px; color: #1E388D; display: inline-block;">
+                Tersedia Di Berbagai Daerah!
+            </span>
         </div>
-        <h1 class="fw-bold display-4 mb-4" style="color: #1e1e1e;">Tunggu apalagi? Pesan Sekarang <br>Disini!</h1>
+
+        <h1 id="typewriter" class="fw-bold display-4 mb-4" style="color: #1e1e1e;"></h1>
+
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <a href="#" class="btn btn-primary px-4 py-2 fw-semibold" style= "background-color:#3328BF;">Info Selengkapnya</a>
+            <a href="#" class="btn btn-primary px-4 py-2 fw-semibold" style="background-color:#3328BF;">Info Selengkapnya</a>
             <a href="{{ route('register') }}" class="btn px-4 py-2 fw-semibold"
-   style="background-color: rgba(255, 255, 255, 0.3);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          color: #1E388D;
-          border: 2px solid rgba(30, 56, 141, 0.4);
-          border-radius: 50px;">
-    Pesan<i class="bi bi-arrow-right ms-1"></i>
-</a>
-</a>
+               style="background-color: rgba(255, 255, 255, 0.3);
+                      backdrop-filter: blur(8px);
+                      -webkit-backdrop-filter: blur(8px);
+                      color: #1E388D;
+                      border: 2px solid rgba(30, 56, 141, 0.4);
+                      border-radius: 50px;">
+                Pesan<i class="bi bi-arrow-right ms-1"></i>
+            </a>
         </div>
     </div>
 </section>
+
+<!-- JavaScript -->
+<script>
+  const target = document.getElementById("typewriter");
+  const text1 = "Tunggu apalagi?";
+  const text2 = " Pesan Sekarang Disini!";
+
+  let animated = false;
+
+  function startTyping() {
+    let i = 0;
+    function typeFirst() {
+      if (i < text1.length) {
+        target.innerHTML += text1.charAt(i);
+        i++;
+        setTimeout(typeFirst, 60);
+      } else {
+        setTimeout(typeSecond, 700); // jeda setelah tanda tanya
+      }
+    }
+
+    let j = 0;
+    function typeSecond() {
+      if (j < text2.length) {
+        target.innerHTML += text2.charAt(j);
+        j++;
+        setTimeout(typeSecond, 60);
+      }
+    }
+
+    typeFirst();
+  }
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !animated) {
+        animated = true; // biar gak ke-trigger dua kali
+        startTyping();
+        observer.unobserve(entry.target); // stop observe setelah aktif
+      }
+    });
+  }, { threshold: 0.3 }); // aktif saat 30% elemen terlihat
+
+  observer.observe(document.getElementById("order"));
+</script>
+
 {{-- Section About Us --}}
 <section id="about" class="d-flex align-items-center py-5" style="min-height: 100vh; background: linear-gradient(90deg, #1E388D 0%, #2A4BA0 100%); color: white;">
     <div class="container">

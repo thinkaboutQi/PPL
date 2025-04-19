@@ -36,3 +36,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
+Route::get('/order', function () {
+    return view('order');
+})->name('order');
