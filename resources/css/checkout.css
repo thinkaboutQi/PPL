@@ -1,0 +1,42 @@
+/* Warna latar belakang utama */
+.bg-primary-custom {
+    background-color: #2e23cc;
+  }
+  
+  /* Card styling */
+  .card {
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Label form berwarna biru */
+  label.form-label {
+    color: #3328BF;
+  }
+  
+  /* Input icon background */
+  .input-group-text {
+    background-color: #fff;
+  }
+  
+  /* Tombol + dan - */
+  #btn-minus,
+  #btn-plus {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 18px;
+  }
+  
+  /* Button utama */
+  .btn-primary {
+    background-color: #3328BF;
+    border-color: #3328BF;
+  }
+  
+  .btn-primary:hover {
+    background-color: #3328BF;
+    border-color: #3328BF;
+  }
+  

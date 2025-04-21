@@ -4,6 +4,7 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
@@ -39,3 +40,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/order', function () {
     return view('order');
 })->name('order');
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
