@@ -22,23 +22,25 @@
 
         <!-- mobil tanki air Truk Tangki Air Bersih -->
         <div class="container mt-4">
-    <div class="row">
-        @foreach($produk as $p)
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <img src="{{ asset($p->gambar) }}" class="card-img-top" alt="{{ $p->nama_produk }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $p->nama_produk }}</h5>
-                        <p class="card-text">Harga: <strong>Rp {{ number_format($p->harga, 0, ',', '.') }}</strong></p>
-                        <p class="card-text">Satuan: {{ $p->satuan }}</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a href="#" class="btn btn-primary">Pesan</a>
-                    </div>
+        <div class="row">
+    @foreach($produk as $p)
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="{{ asset($p->gambar) }}" class="card-img-top" alt="{{ $p->nama_produk }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $p->nama_produk }}</h5>
+                    <p class="card-text">Harga: <strong>Rp {{ number_format($p->harga, 0, ',', '.') }}</strong></p>
+                    <p class="card-text">Satuan: {{ $p->satuan }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <!-- Ubah tombol pesan untuk mengarahkan ke route checkout -->
+                    <a href="{{ route('checkout.index', ['produk_id' => $p->id, 'nama_produk' => $p->nama_produk, 'harga' => $p->harga, 'quantity' => 1]) }}" class="btn btn-primary">Pesan</a>
                 </div>
             </div>
-        @endforeach
-    </div>
+        </div>
+    @endforeach
+</div>
+
 </div>
     </div>
   </div>

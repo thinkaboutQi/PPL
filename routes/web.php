@@ -42,4 +42,4 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
-Route::get('/order', [ProdukAirController::class, 'index']);
+Route::get('/order', [ProdukAirController::class, 'index'])->name('order');

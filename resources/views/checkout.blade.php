@@ -29,7 +29,10 @@
               <input type="text" name="alamat" class="form-control" placeholder="Alamat Lengkap" required />
             </div>
           </div>
-          <input type="hidden" name="quantity" id="inputQuantity" value="1" />
+          <input type="hidden" name="quantity" id="inputQuantity" value="{{ request('quantity') }}" />
+          <input type="hidden" name="produk_id" value="{{ request('produk_id') }}" />
+          <input type="hidden" name="nama_produk" value="{{ request('nama_produk') }}" />
+          <input type="hidden" name="harga" value="{{ request('harga') }}" />
           <button type="submit" class="btn btn-primary w-100 mt-3">Place Order</button>
         </form>
       </div>
@@ -38,17 +41,17 @@
       <div class="col-md-5">
         <div class="card p-3">
           <div class="d-flex">
-            <img src="https://assets.onecompiler.app/42vbxdd3a/43feyvfsw/images.jpg" alt="Galon" class="img-fluid rounded me-3" />
+          <img src="{{ asset( request('gambar')) }}" alt="{{ request('nama_produk') }}" class="img-fluid rounded me-3" />
             <div class="card-content">
-              <h5>Galon Air Bersih</h5>
+              <h5>{{ request('nama_produk') }}</h5>
               <div class="d-flex align-items-center mb-2">
                 <label class="me-2">Pembelian:</label>
                 <button id="btn-minus" class="btn btn-sm btn-outline-secondary" type="button">-</button>
-                <input type="text" id="quantity" class="form-control text-center mx-1" value="1" style="width: 50px;" />
+                <input type="text" id="quantity" class="form-control text-center mx-1" value="{{ request('quantity') }}" style="width: 50px;" />
                 <button id="btn-plus" class="btn btn-sm btn-outline-secondary" type="button">+</button>
               </div>
-              <p id="subtotal">Subtotal: -</p>
-              <p id="total">Total: -</p>
+              <p id="subtotal">Subtotal: Rp {{ number_format(request('harga') * request('quantity'), 0, ',', '.') }}</p>
+              <p id="total">Total: Rp {{ number_format(request('harga') * request('quantity'), 0, ',', '.') }}</p>
             </div>
           </div>
         </div>
@@ -67,7 +70,7 @@
     const subtotalElem = document.getElementById("subtotal");
     const totalElem = document.getElementById("total");
 
-    const hargaPerGalon = 10000;
+    const hargaPerGalon = {{ request('harga') }};  // Menggunakan harga dari query parameter
 
     function updateHarga() {
       let jumlah = parseInt(quantityInput.value);
