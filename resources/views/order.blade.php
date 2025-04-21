@@ -34,7 +34,13 @@
                 </div>
                 <div class="card-footer text-center">
                     <!-- Ubah tombol pesan untuk mengarahkan ke route checkout -->
-                    <a href="{{ route('checkout.index', ['produk_id' => $p->id, 'nama_produk' => $p->nama_produk, 'harga' => $p->harga, 'quantity' => 1]) }}" class="btn btn-primary">Pesan</a>
+                    <a href="{{ route('checkout.index', [
+    'produk_id' => $p->id,
+    'nama_produk' => $p->nama_produk,
+    'harga' => $p->harga,
+    'quantity' => 1,
+    'gambar' => $p->gambar // <- Tambahkan ini
+]) }}" class="btn btn-primary">Pesan</a>
                 </div>
             </div>
         </div>
