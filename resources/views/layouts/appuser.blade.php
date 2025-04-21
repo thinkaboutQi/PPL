@@ -50,7 +50,7 @@
                                     <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ route('home') }}">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-        <a class="nav-link {{ request()->is('order') ? 'text-blue-700 border-b-2 border-blue-700 pb-1' : '' }}" href="{{ route('order') }}">
+        <a class="nav-link " href="">
             Order
         </a>
     </li>
