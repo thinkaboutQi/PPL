@@ -19,28 +19,28 @@ class ProdukAirSeeder extends Seeder
         ProdukAir::create([
             'nama_produk' => 'Jerigen Air Bersih',
             'harga' => 30000,
-            'satuan' => 'jerigen',
+            'satuan' => '25',
             'deskripsi' => 'Air bersih dalam jerigen',
             'gambar' => 'img/dirigen.png',
         ]);
         ProdukAir::create([
             'nama_produk' => 'Truk Tangki Air Bersih',
             'harga' => 200000,
-            'satuan' => 'truk',
+            'satuan' => '2000',
             'deskripsi' => 'Air bersih dalam truk tangki',
             'gambar' => 'img/truk.jpg',
         ]);
         ProdukAir::create([
             'nama_produk' => 'Galon Air Bersih',
             'harga' => 10000,
-            'satuan' => 'galon',
+            'satuan' => '5',
             'deskripsi' => 'Air bersih dalam galon',
             'gambar' => 'img/galon.png',
         ]);
         ProdukAir::create([
             'nama_produk' => 'Drum Air Bersih',
             'harga' => 50000,
-            'satuan' => 'drum',
+            'satuan' => '200',
             'deskripsi' => 'Air bersih dalam drum',
             'gambar' => 'img/drum.png',
         ]);
