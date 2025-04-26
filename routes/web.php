@@ -48,3 +48,5 @@ Route::get('/order', [ProdukAirController::class, 'index'])->name('order');
 
 Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 Route::post('/order', [OrderController::class, 'store'])->name('checkout.store');
+
+Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');

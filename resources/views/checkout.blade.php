@@ -1,54 +1,71 @@
 @extends('layouts.appuser')
 
 @section('content')
-<div class="container py-5" style="background-color: #0B1C54; color: white;">
+<div class="container py-5">
     <h2 class="mb-4">Create Order</h2>
-
     <div class="row">
-        <!-- Alamat Pengiriman -->
-        <div class="col-md-8">
-            <div class="card mb-4" style="background-color: white; color: black; padding: 20px; border-radius: 10px;">
-                <h5>Alamat Pengiriman</h5>
-                <p><strong>Nama:</strong> {{ $order['alamat']['nama'] ?? '-' }}</p>
-                <p><strong>No. Telp:</strong> {{ $order['alamat']['no_telp'] ?? '-' }}</p>
-                <p><strong>Alamat:</strong> {{ $order['alamat']['alamat'] ?? '-' }}</p>
-                <p><strong>Kode Pos:</strong> {{ $order['alamat']['kode_pos'] ?? '-' }}</p>
-                <p><strong>Pin:</strong> {{ $order['alamat']['pin'] ?? '-' }}</p>
+        <!-- Form Alamat Pengiriman -->
+        <div class="col-md-7">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5>Alamat Pengiriman</h5>
+                    <form action="{{ route('order.store') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label>Nama</label>
+                            <input type="text" name="nama" class="form-control" value="{{ old('nama', session('order.nama')) }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>No. Telp</label>
+                            <input type="text" name="telp" class="form-control" value="{{ old('telp', session('order.telp')) }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>Alamat</label>
+                            <input type="text" name="pin_alamat" class="form-control" value="{{ old('pin_alamat', session('order.pin_alamat')) }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>Kode Pos</label>
+                            <input type="text" name="kode_pos" class="form-control" value="{{ old('kode_pos', session('order.kode_pos')) }}">
+                        </div>
+                        <div class="mb-3">
+                            <label>Pin Alamat</label>
+                            <textarea name="Pin Alamat" class="form-control">{{ old('pin_alamat', session('order.alamat')) }}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Simpan Alamat</button>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <!-- Produk Pesanan -->
-        <div class="col-md-4">
-            <div class="card" style="background-color: white; color: black; padding: 20px; border-radius: 10px;">
-                <div class="text-center mb-3">
-                    <img src="{{ asset('assets/galon.png') }}" alt="Galon Air" style="width: 100px;">
-                    <h5>Galon Air Bersih</h5>
+        <!-- Detail Produk -->
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body text-center">
+                    @if(session('order.items'))
+                        @foreach(session('order.items') as $item)
+                            <div class="mb-3">
+                                <div>{{ $item['product']->nama_produk }}</div>
+                                <img src="{{ asset($item['product']->gambar) }}" alt="{{ $item['product']->nama_produk }}" class="img-fluid mb-2" style="max-height: 100px;">
+                                <div>{{ $item['product']->nama }} ({{ $item['quantity'] }})</div>
+                                <div>Harga: Rp {{ number_format($item['product']->harga * $item['quantity'], 0, ',', '.') }}</div>
+                            </div>
+                        @endforeach
+                    @else
+                        <p>Tidak ada produk.</p>
+                    @endif
+
+                    <hr>
+                    <div class="text-start">
+                        <p><strong>Pengiriman:</strong> Free</p>
+                        <p><strong>Total:</strong> 
+                            Rp {{ number_format(collect(session('order.items'))->sum(function($item) { 
+                                return $item['product']->harga * $item['quantity']; 
+                            }), 0, ',', '.') }}
+                        </p>
+                    </div>
+
+                    <a href="{{ route('checkout.confirm') }}" class="btn btn-primary w-100">Order</a>
                 </div>
-
-                @php
-                    $total = 0;
-                @endphp
-
-                @if(isset($order['items']))
-                    @foreach($order['items'] as $item)
-                        <p>{{ $item['product']->nama_produk }} ({{ $item['quantity'] }} pcs)</p>
-                        <p>Harga: Rp {{ number_format($item['product']->harga * $item['quantity'], 0, ',', '.') }}</p>
-                        @php
-                            $total += $item['product']->harga * $item['quantity'];
-                        @endphp
-                    @endforeach
-                @else
-                    <p>Tidak ada produk.</p>
-                @endif
-
-                <hr>
-                <p><strong>Pengiriman:</strong> Free</p>
-                <p><strong>Total:</strong> Rp {{ number_format($total, 0, ',', '.') }}</p>
-
-                <form action="{{ route('checkout.confirm') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-primary w-100 mt-3">Konfirmasi Order</button>
-                </form>
             </div>
         </div>
     </div>
