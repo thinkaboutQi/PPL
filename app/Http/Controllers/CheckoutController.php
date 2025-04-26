@@ -1,29 +1,25 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
     public function index()
     {
-        return view('checkout');
+        // Ambil semua data order dari session
+        $order = Session::get('order');
+
+        return view('checkout', compact('order'));
     }
 
-    public function store(Request $request)
+    public function confirm(Request $request)
     {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'telepon' => 'required|string',
-            'provinsi' => 'required|string',
-            'alamat' => 'required|string',
-            'quantity' => 'required|integer|min:1'
-        ]);
+        // Misal kamu mau konfirmasi checkout di sini
+        Session::forget('order');
 
-        // Simulasi simpan ke database (atau bisa dikirim ke model Order)
-        $data = $request->all();
-
-        // Contoh response
-        return redirect()->route('checkout.index')->with('success', 'Pesanan berhasil dibuat!');
+        return redirect()->route('order')->with('success', 'Order berhasil dikonfirmasi!');
     }
 }

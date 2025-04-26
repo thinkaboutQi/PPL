@@ -12,16 +12,25 @@
         <div class="bg-white border rounded shadow-sm p-3 me-2" style="width: 250px; pointer-events: auto;">
             <h6 class="text-center fw-bold text-primary mb-3">Select Location</h6>
             <!-- Form -->
-            <div class="position-relative mb-3">
-                <div class="d-flex align-items-center gap-2">
-                    <i class="bi bi-geo-alt-fill text-gray-600"></i>
-                    <input type="text" id="fromLocation" placeholder="Enter location"
-                        class="form-control form-control-sm" autocomplete="off" />
+            <form id="orderForm" method="POST" action="{{ route('checkout.store') }}">
+                @csrf
+                <div class="position-relative mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-geo-alt-fill text-gray-600"></i>
+                        <input type="text" id="fromLocation" name="alamat" placeholder="Enter location"
+                            class="form-control form-control-sm" autocomplete="off" required />
+                    </div>
+                    <ul id="fromSuggestions" class="list-group position-absolute w-100 mt-1 z-50"
+                        style="max-height: 150px; overflow-y: auto; display: none;"></ul>
                 </div>
-                <ul id="fromSuggestions" class="list-group position-absolute w-100 mt-1 z-50"
-                    style="max-height: 150px; overflow-y: auto; display: none;"></ul>
-            </div>
-            <button class="btn btn-primary w-100 btn-sm">Place Order</button>
+                
+                <!-- Hidden inputs for each product quantity -->
+                @foreach ($produk as $p)
+                    <input type="hidden" name="quantity[{{ $p->id }}]" id="quantity-{{ $p->id }}-input" value="0">
+                @endforeach
+
+                <button type="submit" class="btn btn-primary w-100 btn-sm">Place Order</button>
+            </form>
         </div>
 
         <!-- Produk Air Horizontal -->
@@ -38,9 +47,9 @@
 
                             <!-- Quantity Controls -->
                             <div class="d-flex justify-content-between align-items-center">
-                                <button class="btn btn-sm btn-outline-secondary" onclick="decreaseQuantity({{ $p->id }})">-</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="decreaseQuantity({{ $p->id }})">-</button>
                                 <input type="number" id="quantity-{{ $p->id }}" value="0" class="form-control form-control-sm text-center" style="width: 40px;" readonly />
-                                <button class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity({{ $p->id }})">+</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity({{ $p->id }})">+</button>
                             </div>
                         </div>
                     </div>
@@ -84,6 +93,9 @@
         let quantityInput = document.getElementById(`quantity-${productId}`);
         let currentQuantity = parseInt(quantityInput.value) || 0;
         quantityInput.value = currentQuantity + 1;
+
+        // Update hidden quantity input
+        document.getElementById(`quantity-${productId}-input`).value = quantityInput.value;
     }
 
     function decreaseQuantity(productId) {
@@ -92,6 +104,9 @@
         if (currentQuantity > 0) {
             quantityInput.value = currentQuantity - 1;
         }
+
+        // Update hidden quantity input
+        document.getElementById(`quantity-${productId}-input`).value = quantityInput.value;
     }
 </script>
 @endpush
