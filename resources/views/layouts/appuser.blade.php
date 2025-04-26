@@ -54,12 +54,6 @@
             Order
         </a>
     </li>
-                            <li class="nav-item">
-                                    <a class="nav-link" href="">About Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/') }}">Contact</a>
-                                </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <!-- Authentication Links -->

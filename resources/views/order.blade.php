@@ -6,11 +6,11 @@
     <div id="map"></div>
 
     <!-- Wrapper absolute bawah, isi 2 komponen sejajar -->
-    <div class="position-absolute bottom-0 start-0 w-100 z-3 d-flex justify-content-center p-4" style="pointer-events: none;">
+    <div class="position-absolute bottom-0 start-0 w-100 z-3 d-flex justify-content-center p-3" style="pointer-events: none;">
         
         <!-- Form Lokasi -->
-        <div class="bg-white border rounded shadow p-4 me-3" style="width: 300px; pointer-events: auto;">
-            <h5 class="text-center fw-bold text-primary mb-3">Select Location</h5>
+        <div class="bg-white border rounded shadow-sm p-3 me-2" style="width: 250px; pointer-events: auto;">
+            <h6 class="text-center fw-bold text-primary mb-3">Select Location</h6>
             <!-- Form -->
             <div class="position-relative mb-3">
                 <div class="d-flex align-items-center gap-2">
@@ -25,23 +25,21 @@
         </div>
 
         <!-- Produk Air Horizontal -->
-        <div class="bg-white border rounded shadow p-4" style="pointer-events: auto; max-width: 900px; overflow-x: auto;">
-            <h6 class="fw-bold mb-3 text-center" style="color: #1E388D">Ukuran dan Jenis Air yang tersedia</h6>
+        <div class="bg-white border rounded shadow-sm p-3" style="pointer-events: auto; max-width: 700px; overflow-x: auto;">
+            <h6 class="fw-bold mb-3 text-center text-primary">Ukuran dan Jenis Air</h6>
             <div class="d-flex gap-3 flex-nowrap">
                 @foreach ($produk as $p)  
-                    <div class="card text-center border-primary flex-shrink-0" style="width: 120px;">
-                    <h5 class="text-muted">{{ $p->satuan }}L</h5>
+                    <div class="card text-center border-primary flex-shrink-0" style="width: 100px;">
+                        <h6 class="text-muted small mt-2">{{ $p->satuan }}L</h6>
                         <div class="card-body p-2">
-                            <img src="{{ asset($p->gambar) }}" alt="{{ $p->nama }}"
-                                 class="img-fluid mb-2" style="max-height: 60px;">
+                            <img src="{{ asset($p->gambar) }}" alt="{{ $p->nama }}" class="img-fluid mb-2" style="max-height: 50px;">
                             <h6 class="fw-semibold small mb-1">{{ $p->nama_produk }}</h6>
-                            <!-- Product Price -->
-                            <p class="mt-2 text-primary" style="color: #1E388D">{{ $p->harga }}</p>
+                            <p class="text-primary small mb-2">{{ $p->harga }}</p>
 
                             <!-- Quantity Controls -->
-                            <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <button class="btn btn-sm btn-outline-secondary" onclick="decreaseQuantity({{ $p->id }})">-</button>
-                                <input type="number" id="quantity-{{ $p->id }}" value="0" class="form-control form-control-sm text-center" style="width: 50px;" readonly />
+                                <input type="number" id="quantity-{{ $p->id }}" value="0" class="form-control form-control-sm text-center" style="width: 40px;" readonly />
                                 <button class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity({{ $p->id }})">+</button>
                             </div>
                         </div>
@@ -51,7 +49,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('styles')
@@ -60,8 +57,8 @@
 <style>
     #map {
         height: 100vh;
-        z-index: 0 !important;
         position: relative;
+        z-index: 0 !important;
     }
 
     .leaflet-top.leaflet-right {
@@ -85,13 +82,13 @@
 <script>
     function increaseQuantity(productId) {
         let quantityInput = document.getElementById(`quantity-${productId}`);
-        let currentQuantity = parseInt(quantityInput.value);
+        let currentQuantity = parseInt(quantityInput.value) || 0;
         quantityInput.value = currentQuantity + 1;
     }
 
     function decreaseQuantity(productId) {
         let quantityInput = document.getElementById(`quantity-${productId}`);
-        let currentQuantity = parseInt(quantityInput.value);
+        let currentQuantity = parseInt(quantityInput.value) || 0;
         if (currentQuantity > 0) {
             quantityInput.value = currentQuantity - 1;
         }

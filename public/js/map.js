@@ -15,18 +15,24 @@ async function reverseGeocode(lat, lon) {
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`;
     const response = await fetch(url);
     const data = await response.json();
-    return data.display_name || "Lokasi tidak ditemukan";
+    return data;
 }
 
 // Klik di peta → update Lokasi Asal
 map.on('click', async function(e) {
     const { lat, lng } = e.latlng;
 
-    if (window.asalMarker) map.removeLayer(window.asalMarker);
-    window.asalMarker = L.marker([lat, lng]).addTo(map);
+    const data = await reverseGeocode(lat, lng);
 
-    const address = await reverseGeocode(lat, lng);
-    document.getElementById('fromLocation').value = address;
+    // CEK NEGARA apakah Indonesia
+    if (data.address && data.address.country_code === 'id') {
+        if (window.asalMarker) map.removeLayer(window.asalMarker);
+        window.asalMarker = L.marker([lat, lng]).addTo(map);
+
+        document.getElementById('fromLocation').value = data.display_name || "Lokasi tidak ditemukan";
+    } else {
+        alert("Lokasi yang dipilih bukan di Indonesia.");
+    }
 });
 
 // ====================
@@ -47,7 +53,7 @@ function setupAutocomplete(inputId, suggestionsId, markerType) {
         }
 
         timeout = setTimeout(() => {
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&countrycodes=id&limit=5`)
                 .then(response => response.json())
                 .then(data => {
                     suggestions.innerHTML = '';
@@ -96,4 +102,3 @@ function setupAutocomplete(inputId, suggestionsId, markerType) {
 
 setupAutocomplete('fromLocation', 'fromSuggestions', 'asal');
 setupAutocomplete('toLocation', 'toSuggestions', 'tujuan');
-
