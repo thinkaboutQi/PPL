@@ -46,16 +46,6 @@ class OrderController extends Controller
         // Simpan total amount ke session
         Session::put('order.total_amount', $totalAmount);
 
-        // Simpan ID dan total_amount ke session
-        // Jika kamu menggunakan model Order untuk menyimpan data pesanan:
-        $order = new Order(); // Pastikan kamu punya model Order
-        $order->total_amount = $totalAmount;
-        $order->alamat = $request->alamat;
-        $order->save(); // Simpan order ke database
-
-        // Menyimpan ID order ke session
-        Session::put('order.id', $order->id);
-
         // Redirect ke halaman checkout
         return redirect()->route('checkout.index');
     }
