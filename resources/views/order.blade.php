@@ -12,7 +12,7 @@
         <div class="bg-white border rounded shadow-sm p-3 me-2" style="width: 250px; pointer-events: auto;">
             <h6 class="text-center fw-bold text-primary mb-3">Select Location</h6>
             <!-- Form -->
-            <form id="orderForm" method="POST" action="{{ route('checkout.store') }}" onsubmit="event.preventDefault(); goToPayment();">
+            <form id="orderForm" method="POST" action="{{ route('checkout.store') }}">
                 @csrf
                 <div class="position-relative mb-3">
                     <div class="d-flex align-items-center gap-2">
@@ -107,9 +107,6 @@
 
         // Update hidden quantity input
         document.getElementById(`quantity-${productId}-input`).value = quantityInput.value;
-    }
-    function goToPayment() {
-        document.getElementById('orderForm').submit();
     }
 </script>
 @endpush

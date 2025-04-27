@@ -65,7 +65,7 @@
                             </p>
                         </div>
 
-                        <a href="{{ route('checkout.confirm') }}" class="btn btn-primary w-100">Order</a>
+                        <a href="{{ route('order.qris-payment') }}" class="btn btn-primary w-100">Order</a>
                     </div>
                 </div>
             </div>

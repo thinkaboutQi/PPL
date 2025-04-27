@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProdukAir; // Ganti ke ProdukAir
+use App\Models\Order; // Pastikan kamu menggunakan model Order untuk menyimpan data order
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -35,7 +37,39 @@ class OrderController extends Controller
         // Simpan order items ke session
         Session::put('order.items', $orderItems);
 
+        // Hitung total amount
+        $totalAmount = 0;
+        foreach ($orderItems as $item) {
+            $totalAmount += $item['product']->harga * $item['quantity']; // Sesuaikan dengan atribut harga produk
+        }
+
+        // Simpan total amount ke session
+        Session::put('order.total_amount', $totalAmount);
+
+        // Simpan ID dan total_amount ke session
+        // Jika kamu menggunakan model Order untuk menyimpan data pesanan:
+        $order = new Order(); // Pastikan kamu punya model Order
+        $order->total_amount = $totalAmount;
+        $order->alamat = $request->alamat;
+        $order->save(); // Simpan order ke database
+
+        // Menyimpan ID order ke session
+        Session::put('order.id', $order->id);
+
         // Redirect ke halaman checkout
         return redirect()->route('checkout.index');
+    }
+
+    public function confirm($orderId)
+    {
+        // Ambil data order berdasarkan ID
+        $order = Order::findOrFail($orderId);
+
+        // Lakukan proses konfirmasi (misalnya update status order)
+        $order->status = 'confirmed';  // Sesuaikan dengan field dan logika yang ada di aplikasi kamu
+        $order->save();
+
+        // Redirect atau tampilkan pesan sukses
+        return redirect()->route('checkout.index')->with('success', 'Pembayaran berhasil dikonfirmasi!');
     }
 }
