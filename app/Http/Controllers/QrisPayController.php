@@ -13,7 +13,7 @@ class QrisPayController extends Controller
 
         // Pastikan data order ada di session
         if (!$order) {
-            return redirect()->route('order.create')->with('error', 'Order tidak ditemukan.');
+            return redirect()->route('checkout.index')->with('error', 'Order tidak ditemukan.');
         }
 
         // Kirimkan data order ke view
