@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProdukAirController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
@@ -50,3 +51,8 @@ Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('
 Route::post('/order', [OrderController::class, 'store'])->name('checkout.store');
 
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+});
