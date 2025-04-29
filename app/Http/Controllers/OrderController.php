@@ -62,4 +62,14 @@ class OrderController extends Controller
         // Redirect atau tampilkan pesan sukses
         return redirect()->route('checkout.index')->with('success', 'Pembayaran berhasil dikonfirmasi!');
     }
+
+    public function history()
+    {
+        $user = auth()->user();
+
+        // Ambil semua order milik user yang sedang login
+        $orders = \App\Models\Order::with('items.product')->where('user_id', $user->id)->latest()->get();
+
+        return view('order.history', compact('orders'));
+    }
 }

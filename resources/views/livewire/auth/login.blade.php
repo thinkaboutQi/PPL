@@ -14,8 +14,8 @@
 
                     <form wire:submit.prevent="loginUser">
                         <div class="mb-3">
-                            <label for="identifier" class="form-label">Email atau Nama Lengkap</label>
-                            <input type="text" class="form-control @error('identifier') is-invalid @enderror" id="identifier" placeholder="Masukkan email atau nama lengkap" wire:model.defer="identifier">
+                            <label for="identifier" class="form-label">Email atau Username</label>
+                            <input type="text" class="form-control @error('identifier') is-invalid @enderror" id="identifier" placeholder="Masukkan Email atau Username" wire:model.defer="identifier">
                             @error('identifier')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -37,7 +37,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="remember" wire:model.defer="remember">
                                 <label class="form-check-label" for="remember">
-                                    Remember Me
+                                    Ingat Saya
                                 </label>
                             </div>
                         </div>

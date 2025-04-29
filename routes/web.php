@@ -60,3 +60,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/order/qris-payment', [QrisPayController::class, 'showQRISPayment'])->name('order.qris-payment');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/order/history', [OrderController::class, 'history'])->name('order.history'); // <-- Tambahan ini
+});
