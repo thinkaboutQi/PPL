@@ -19,15 +19,4 @@ class QrisPayController extends Controller
         // Kirimkan data order ke view
         return view('payment.qris-pay', compact('order'));
     }
-
-    public function showQRISPayment()
-    {
-        $order = session('order');
-
-        if (!$order) {
-            return redirect()->route('checkout.index')->with('error', 'Order tidak ditemukan.');
-        }
-
-        return view('payment.qris-pay', compact('order'));
-    }
 }
