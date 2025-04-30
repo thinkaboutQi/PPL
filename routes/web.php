@@ -12,7 +12,7 @@ use App\Http\Controllers\QrisPayController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------|
 | Web Routes                                                              |
@@ -65,3 +65,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/order/history', [OrderController::class, 'history'])->name('order.history'); // <-- Tambahan ini
 });
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
