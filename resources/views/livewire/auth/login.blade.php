@@ -47,6 +47,7 @@
                         </div>
 
                         <a href="{{ route('register') }}" class="text-primary">Belum Punya Akun?</a>
+                        <a href="{{ route('password.request') }}" class="d-drop text-primary">Ganti Password</a>
                     </form>
                 </div>
             </div>
