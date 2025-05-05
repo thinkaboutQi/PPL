@@ -42,6 +42,10 @@
       font-weight: bold;
     }
 
+    .edit-btn:hover {
+      background-color: #e0e0e0;
+    }
+
     .setting-item i {
       width: 25px;
     }
@@ -54,14 +58,15 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    /* Dark Mode Styles */
+    /* ===================== DARK MODE ===================== */
     body.dark-mode {
       background-color: #121212;
       color: #ffffff;
     }
 
     .dark-mode .profile-card,
-    .dark-mode .settings-card {
+    .dark-mode .settings-card,
+    .dark-mode .order-box {
       background-color: #1e1e1e;
       color: #ffffff;
     }
@@ -77,17 +82,19 @@
       border: 1px solid #444;
     }
 
-    .dark-mode .order-box {
-      background-color: #1e1e1e;
-      color: #ffffff;
-    }
-
-    .dark-mode label {
-      color: #ffffff;
-    }
-
+    .dark-mode .form-label,
+    .dark-mode label,
     .dark-mode .setting-item {
       color: #ffffff;
+    }
+
+    .dark-mode .form-control::placeholder {
+      color: #cccccc;
+    }
+
+    .dark-mode .btn-light {
+      background-color: #ffffff;
+      color: #133D91;
     }
   </style>
 </head>
@@ -200,14 +207,14 @@
     alert('Menampilkan syarat & ketentuan...');
   });
 
-  // Logout action
+  // Logout
   document.getElementById('logoutBtn').addEventListener('click', () => {
     if (confirm('Apakah Anda yakin ingin logout?')) {
       document.getElementById('logoutForm').submit();
     }
   });
 
-  // Load saved preference
+  // Load dark mode preference
   document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('darkMode') === 'true') {
       document.body.classList.add('dark-mode');
