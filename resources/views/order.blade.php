@@ -5,13 +5,12 @@
     <!-- Map -->
     <div id="map"></div>
 
-    <!-- Wrapper absolute bawah, isi 2 komponen sejajar -->
+    <!-- Wrapper absolute bawah -->
     <div class="position-absolute bottom-0 start-0 w-100 z-3 d-flex justify-content-center p-3" style="pointer-events: none;">
         
         <!-- Form Lokasi -->
         <div class="bg-white border rounded shadow-sm p-3 me-2" style="width: 250px; pointer-events: auto;">
             <h6 class="text-center fw-bold text-primary mb-3">Select Location</h6>
-            <!-- Form -->
             <form id="orderForm" method="POST" action="{{ route('checkout.store') }}">
                 @csrf
                 <div class="position-relative mb-3">
@@ -24,7 +23,7 @@
                         style="max-height: 150px; overflow-y: auto; display: none;"></ul>
                 </div>
                 
-                <!-- Hidden inputs for each product quantity -->
+                <!-- Hidden inputs for quantity -->
                 @foreach ($produk as $p)
                     <input type="hidden" name="quantity[{{ $p->id }}]" id="quantity-{{ $p->id }}-input" value="0">
                 @endforeach
@@ -45,10 +44,10 @@
                             <h6 class="fw-semibold small mb-1">{{ $p->nama_produk }}</h6>
                             <p class="text-primary small mb-2">{{ $p->harga }}</p>
 
-                            <!-- Quantity Controls -->
+                            <!-- Quantity Controls - Increased width for input -->
                             <div class="d-flex justify-content-between align-items-center">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="decreaseQuantity({{ $p->id }})">-</button>
-                                <input type="number" id="quantity-{{ $p->id }}" value="0" class="form-control form-control-sm text-center" style="width: 40px;" readonly />
+                                <input type="number" id="quantity-{{ $p->id }}" value="0" class="form-control form-control-sm text-center" style="width: 60px;" readonly />
                                 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity({{ $p->id }})">+</button>
                             </div>
                         </div>
@@ -82,6 +81,16 @@
     .card-body {
         padding: 0.5rem;
     }
+    
+    /* Ensure input can display larger numbers */
+    input[type="number"] {
+        min-width: 60px;
+    }
+    
+    /* Adjust card width to accommodate wider input */
+    .card.text-center {
+        width: 110px !important;
+    }
 </style>
 @endpush
 
@@ -92,10 +101,15 @@
     function increaseQuantity(productId) {
         let quantityInput = document.getElementById(`quantity-${productId}`);
         let currentQuantity = parseInt(quantityInput.value) || 0;
+        // No upper limit on quantity
         quantityInput.value = currentQuantity + 1;
 
-        // Update hidden quantity input
+        // Update hidden input
         document.getElementById(`quantity-${productId}-input`).value = quantityInput.value;
+
+        // Remove error if exists
+        const err = document.getElementById('product-error-message');
+        if (err) err.remove();
     }
 
     function decreaseQuantity(productId) {
@@ -105,8 +119,27 @@
             quantityInput.value = currentQuantity - 1;
         }
 
-        // Update hidden quantity input
+        // Update hidden input
         document.getElementById(`quantity-${productId}-input`).value = quantityInput.value;
     }
+
+    // Validasi submit form
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+        let valid = false;
+        document.querySelectorAll('input[name^="quantity["]').forEach((input) => {
+            if (parseInt(input.value) > 0) valid = true;
+        });
+
+        if (!valid) {
+            event.preventDefault();
+            if (!document.getElementById('product-error-message')) {
+                const error = document.createElement('div');
+                error.id = 'product-error-message';
+                error.className = 'alert alert-danger mt-2 small';
+                error.textContent = 'Please select at least one product';
+                this.querySelector('button[type="submit"]').after(error);
+            }
+        }
+    });
 </script>
 @endpush
