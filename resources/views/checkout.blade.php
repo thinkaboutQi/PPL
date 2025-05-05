@@ -1,7 +1,7 @@
 @extends('layouts.appuser')
 
 @section('content')
-<div style="background-color: #1E388D; min-height: 100vh; padding-top: 50px; padding-bottom: 50px;">
+<div style="background-color: #1E388D; min-height: 100vh; padding-top: 0px; padding-bottom: 0px;">
     <div class="container py-5">
         <h2 class="mb-4 text-white" style="font-family: 'Poppins', sans-serif;">Create Order</h2>
         <div class="row">
@@ -19,6 +19,10 @@
                             <div class="mb-3">
                                 <label>No. Telp</label>
                                 <input type="text" name="telp" class="form-control" value="{{ old('telp', session('order.telp')) }}">
+                            </div>
+                            <div class="mb-3">
+                                <label>Catatan Pesanan</label>
+                                <textarea name="catatan_pesanan" class="form-control">{{ old('catatan_pesanan', session('order.catatan_pesanan')) }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label>Alamat</label>
