@@ -43,8 +43,8 @@
         <div class="text-white text-center mt-3">
             Tidak punya account? 
             <a href="{{ route('register') }}" class="text-white fw-bold" style="text-decoration: underline;">Daftar Akun</a>
+            <a href="{{ route('password.request') }}" class="text-white fw-bold" style="text-decoration: underline;">Lupa Password</a>
         </div>
-
         <hr class="bg-white my-4">
     </div>
 </div>
