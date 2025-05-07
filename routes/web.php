@@ -9,6 +9,7 @@ use App\Http\Controllers\ProdukAirController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrisPayController;
+use App\Http\Controllers\SimpanAlamatController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
@@ -48,6 +49,10 @@ Route::get('/order', [ProdukAirController::class, 'index'])->name('order');
 
 Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 Route::post('/order', [OrderController::class, 'store'])->name('checkout.store');
+
+Route::get('/checkout', [SimpanAlamatController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [SimpanAlamatController::class, 'store'])->name('SimpanAlamat.store');
+Route::post('/order', [SimpanAlamatController::class, 'order'])->name('order.store');
 
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 
