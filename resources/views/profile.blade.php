@@ -183,8 +183,36 @@
 
   // Dark Mode Toggle
   document.getElementById('darkModeBtn').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    const body = document.body;
+    body.classList.toggle('dark-mode');
+
+    // Update all elements to dark mode
+    const profileCard = document.querySelectorAll('.profile-card');
+    const settingsCard = document.querySelectorAll('.settings-card');
+    const orderBox = document.querySelectorAll('.order-box');
+    const formControls = document.querySelectorAll('.form-control');
+    const formLabels = document.querySelectorAll('.form-label, label, .setting-item');
+    const placeholders = document.querySelectorAll('.form-control::placeholder');
+    const btnLight = document.querySelectorAll('.btn-light');
+
+    profileCard.forEach(card => card.classList.toggle('dark-mode'));
+    settingsCard.forEach(card => card.classList.toggle('dark-mode'));
+    orderBox.forEach(box => box.classList.toggle('dark-mode'));
+    formControls.forEach(control => {
+      control.classList.toggle('dark-mode');
+      control.style.backgroundColor = body.classList.contains('dark-mode') ? '#2c2c2c' : '';
+      control.style.color = body.classList.contains('dark-mode') ? '#ffffff' : '';
+      control.style.border = body.classList.contains('dark-mode') ? '1px solid #444' : '';
+    });
+    formLabels.forEach(label => label.style.color = body.classList.contains('dark-mode') ? '#ffffff' : '');
+    placeholders.forEach(placeholder => placeholder.style.color = body.classList.contains('dark-mode') ? '#cccccc' : '');
+    btnLight.forEach(btn => {
+      btn.style.backgroundColor = body.classList.contains('dark-mode') ? '#ffffff' : '';
+      btn.style.color = body.classList.contains('dark-mode') ? '#133D91' : '';
+    });
+
+    // Save preference to localStorage
+    localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
   });
 
   // Alamat Tersimpan
