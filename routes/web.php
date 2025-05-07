@@ -50,9 +50,9 @@ Route::get('/order', [ProdukAirController::class, 'index'])->name('order');
 Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 Route::post('/order', [OrderController::class, 'store'])->name('checkout.store');
 
-Route::get('/checkout', [SimpanAlamatController::class, 'index'])->name('checkout.index');
-Route::post('/checkout', [SimpanAlamatController::class, 'store'])->name('SimpanAlamat.store');
-Route::post('/order', [SimpanAlamatController::class, 'order'])->name('order.store');
+// Route::get('/checkout', [SimpanAlamatController::class, 'index'])->name('checkout.index');
+// Route::post('/checkout', [SimpanAlamatController::class, 'store'])->name('SimpanAlamat.store');
+// Route::post('/order', [SimpanAlamatController::class, 'order'])->name('order.store');
 
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 
@@ -72,4 +72,5 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
-Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+// Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+// Route::put('/profile/update-address/{id}', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');

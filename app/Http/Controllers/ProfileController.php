@@ -24,12 +24,15 @@ class ProfileController extends Controller
             'email' => 'required|email|max:255',
             'phone_number' => 'nullable|string|max:15', // Validasi nomor telepon
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi gambar
+            'alamat' => 'required|string|max:255',
         ]);
 
         // Update data pengguna
         $user->name = $request->name;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number; // Update nomor telepon jika ada
+        $user->alamat = $request->alamat; // Update alamat
+
 
         // Proses jika ada gambar baru
         if ($request->hasFile('profile_image')) {
@@ -49,4 +52,33 @@ class ProfileController extends Controller
         // Redirect setelah update berhasil
         return redirect()->route('home')->with('success', 'Profile updated successfully.');
     }
+
+    public function showSavedAddresses()
+    {
+        $user = Auth::user();
+
+        // Ambil alamat yang sudah disimpan dari database atau session
+        $savedAddresses = $user->alamat ?? []; // Asumsikan ada relasi addresses
+
+        return view('saved_addresses', compact('savedAddresses'));
+    }
+
+    // public function updateAddress(Request $request, $id)
+    // {
+    //     // Validasi data
+    //     $validated = $request->validate([
+    //         'alamat' => 'required|string|max:255',
+    //         'kode_pos' => 'required|string|max:10',
+    //         'nama' => 'required|string|max:255',
+    //         'no_telp' => 'required|string|max:15',
+    //         'pin_alamat' => 'required|string|max:10',
+    //     ]);
+
+    //     // Cari alamat berdasarkan ID dan update
+    //     $address = Auth::user()->addresses()->findOrFail($id);
+    //     $address->update($validated);
+
+    //     // Redirect kembali ke halaman alamat tersimpan
+    //     return redirect()->route('profile.savedAddresses')->with('success', 'Alamat berhasil diperbarui!');
+    // }
 }

@@ -57,6 +57,30 @@
       padding: 20px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
+    .setting-button {
+      background: none;
+      border: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      text-align: left;
+      border-radius: 0.5rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .setting-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: scale(1.02);
+      cursor: pointer;
+    }
+
+    .setting-button:active {
+      transform: scale(0.98);
+    }
+
 
     /* ===================== DARK MODE ===================== */
     body.dark-mode {
@@ -135,6 +159,10 @@
       <label class="form-label">Foto Profil</label>
       <input type="file" name="profile_image" class="form-control">
     </div>
+    <div class="mb-3">
+      <label class="form-label">Alamat</label>
+      <input type="text" name="alamat" class="form-control" value="{{ $user->alamat }}">
+    </div>
     <button type="submit" class="btn btn-light">Simpan Perubahan</button>
   </form>
 
@@ -143,8 +171,11 @@
     <button id="darkModeBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100 mb-3" style="background: none; border: none;">
       <i class="bi bi-moon-fill me-2"></i> Dark mode
     </button>
-    <button id="addressBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100 mb-3" style="background: none; border: none;">
-      <i class="bi bi-geo-alt-fill me-2"></i> Alamat Tersimpan
+    <button id="addressBtn" class="setting-button flex-column align-items-start text-white">
+      <div>
+        <i class="bi bi-geo-alt-fill me-2"></i> Alamat Tersimpan
+      </div>
+      <small id="addressContainer" class="ms-4 text-white-50"></small>
     </button>
     <button id="helpCenterBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100 mb-3" style="background: none; border: none;">
       <i class="bi bi-question-circle-fill me-2"></i> Pusat Bantuan
@@ -183,42 +214,22 @@
 
   // Dark Mode Toggle
   document.getElementById('darkModeBtn').addEventListener('click', () => {
-    const body = document.body;
-    body.classList.toggle('dark-mode');
-
-    // Update all elements to dark mode
-    const profileCard = document.querySelectorAll('.profile-card');
-    const settingsCard = document.querySelectorAll('.settings-card');
-    const orderBox = document.querySelectorAll('.order-box');
-    const formControls = document.querySelectorAll('.form-control');
-    const formLabels = document.querySelectorAll('.form-label, label, .setting-item');
-    const placeholders = document.querySelectorAll('.form-control::placeholder');
-    const btnLight = document.querySelectorAll('.btn-light');
-
-    profileCard.forEach(card => card.classList.toggle('dark-mode'));
-    settingsCard.forEach(card => card.classList.toggle('dark-mode'));
-    orderBox.forEach(box => box.classList.toggle('dark-mode'));
-    formControls.forEach(control => {
-      control.classList.toggle('dark-mode');
-      control.style.backgroundColor = body.classList.contains('dark-mode') ? '#2c2c2c' : '';
-      control.style.color = body.classList.contains('dark-mode') ? '#ffffff' : '';
-      control.style.border = body.classList.contains('dark-mode') ? '1px solid #444' : '';
-    });
-    formLabels.forEach(label => label.style.color = body.classList.contains('dark-mode') ? '#ffffff' : '');
-    placeholders.forEach(placeholder => placeholder.style.color = body.classList.contains('dark-mode') ? '#cccccc' : '');
-    btnLight.forEach(btn => {
-      btn.style.backgroundColor = body.classList.contains('dark-mode') ? '#ffffff' : '';
-      btn.style.color = body.classList.contains('dark-mode') ? '#133D91' : '';
-    });
-
-    // Save preference to localStorage
-    localStorage.setItem('darkMode', body.classList.contains('dark-mode'));
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
   });
 
   // Alamat Tersimpan
   document.getElementById('addressBtn').addEventListener('click', () => {
-    alert('Membuka alamat tersimpan...');
-  });
+  const addressContainer = document.getElementById('addressContainer');
+  const isVisible = addressContainer.textContent.trim() !== '';
+
+  if (!isVisible) {
+    addressContainer.textContent = '{{ $user->alamat }}'; // ganti dengan $user->alamat jika pakai Blade
+  } else {
+    addressContainer.textContent = '';
+  }
+});
+
 
   // Pusat Bantuan
   document.getElementById('helpCenterBtn').addEventListener('click', () => {
