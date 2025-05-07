@@ -35,7 +35,7 @@
             </span>
         </div>
 
-        <h1 id="typewriter" class="fw-bold display-4 mb-4" style="color: #1e1e1e; padding: 10px 0;"></h1>
+        <h1 id="typewriter" class="fw-bold display-4 mb-4" style="color: #1e1e1e;"></h1>
 
         <div class="d-flex justify-content-center gap-3 mt-4">
             <a href="#" class="btn btn-primary px-4 py-2 fw-semibold" style="background-color:#3328BF;">Info Selengkapnya</a>
@@ -103,12 +103,12 @@
         <div class="row align-items-center g-5">
             <!-- Left: Gambar -->
             <div class="col-lg-6" data-aos="fade-right">
-                <img src="https://assets.onecompiler.app/43gzrskdv/43gzrsp5x/developer%20sibesi.jpg" class="img-fluid rounded" alt="Tentang Kami" style="max-width: 400px; margin: 0 auto; display: block;">
+                <img src="https://assets.onecompiler.app/432w6j563/43e8728yh/Keran%20Air%20Mengalir%20-%20Foto%20gratis%20di%20Pixabay.jfif" class="img-fluid rounded" alt="Tentang Kami">
             </div>
 
             <!-- Right: Text -->
             <div class="col-lg-6" data-aos="fade-left">
-                <h2 class="fw-bold display-5" style="margin-top:60px;">SIBESI : Sistem <br>Informasi Air Bersih</h2>
+                <h2 class="fw-bold display-5" style="margin-top:60px;">SIBESI : Solusi <br>Air Bersih untuk<br>Kebutuhan<br> Anda!</h2>
                 <p class="mt-3 mb-4" style="max-width: 500px;">
                     Kami siap memberikan solusi terbaik sesuai dengan kebutuhan Anda. Bersama kami, nikmati kemudahan akses air bersih untuk kehidupan yang lebih sehat dan berkelanjutan.
                 </p>
