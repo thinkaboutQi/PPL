@@ -37,17 +37,17 @@
             <h6 class="fw-bold mb-3 text-center text-primary">Ukuran dan Jenis Air</h6>
             <div class="d-flex gap-3 flex-nowrap">
                 @foreach ($produk as $p)  
-                    <div class="card text-center border-primary flex-shrink-0" style="width: 100px;">
+                    <div class="card text-center border-primary flex-shrink-0" style="width: 140px; padding: 10px;">
                         <h6 class="text-muted small mt-2">{{ $p->satuan }}L</h6>
                         <div class="card-body p-2">
                             <img src="{{ asset($p->gambar) }}" alt="{{ $p->nama }}" class="img-fluid mb-2" style="max-height: 50px;">
                             <h6 class="fw-semibold small mb-1">{{ $p->nama_produk }}</h6>
                             <p class="text-primary small mb-2">{{ $p->harga }}</p>
 
-                            <!-- Quantity Controls - Increased width for input -->
-                            <div class="d-flex justify-content-between align-items-center">
+                            <!-- Quantity Controls - Adjusted with gap and align-items-center -->
+                            <div class="d-flex gap-2 align-items-center justify-content-center flex-nowrap" style="width: 100%;">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="decreaseQuantity({{ $p->id }})">-</button>
-                                <input type="number" id="quantity-{{ $p->id }}" value="0" class="form-control form-control-sm text-center" style="width: 60px;" readonly />
+                                <input type="number" id="quantity-{{ $p->id }}" value="0" class="form-control form-control-sm text-center" style="width: 50px;" readonly />
                                 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="increaseQuantity({{ $p->id }})">+</button>
                             </div>
                         </div>
