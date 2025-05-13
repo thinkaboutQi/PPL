@@ -15,5 +15,8 @@ class ProdukAir extends Model
         'deskripsi',
         'gambar',
     ];
-
+    public function OrderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'produk_air_id');
+    }
 }

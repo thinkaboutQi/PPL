@@ -12,17 +12,7 @@ use App\Http\Controllers\QrisPayController;
 use App\Http\Controllers\SimpanAlamatController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Livewire\Livewire;
 use App\Http\Controllers\UserController;
-/*
-|--------------------------------------------------------------------------|
-| Web Routes                                                              |
-|--------------------------------------------------------------------------|
-| Here is where you can register web routes for your application. These   |
-| routes are loaded by the RouteServiceProvider and all of them will      |
-| be assigned to the "web" middleware group. Make something great!        |
-|--------------------------------------------------------------------------|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,47 +20,35 @@ Route::get('/', function () {
 
 Auth::routes(['login' => false, 'register' => false]);
 
-route::middleware('guest')->group(function(){
+// Auth routes
+Route::middleware('guest')->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/register', Register::class)->name('register');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+// Admin routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
 });
 
+// Checkout and order routes
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::post('/checkout/process', [CheckoutController::class, 'process'])->middleware('auth')->name('checkout.process');
+Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 
 Route::get('/order', [ProdukAirController::class, 'index'])->name('order');
-
-Route::post('/checkout/confirm', [CheckoutController::class, 'confirm'])->name('checkout.confirm');
 Route::post('/order', [OrderController::class, 'store'])->name('checkout.store');
-
-// Route::get('/checkout', [SimpanAlamatController::class, 'index'])->name('checkout.index');
-// Route::post('/checkout', [SimpanAlamatController::class, 'store'])->name('SimpanAlamat.store');
-// Route::post('/order', [SimpanAlamatController::class, 'order'])->name('order.store');
-
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
-
-// Menambahkan route untuk konfirmasi pembayaran
 Route::post('/order/{orderId}/confirm', [OrderController::class, 'confirm'])->name('order.confirm');
 
+// QRIS payment (dengan order_id)
+Route::get('/order/qris-payment/{order_id}', [QrisPayController::class, 'showQRISPayment'])->name('order.qris-payment');
+
+// Profile routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
-
-Route::get('/order/qris-payment', [QrisPayController::class, 'showQRISPayment'])->name('order.qris-payment');
-
-Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::get('/order/history', [OrderController::class, 'history'])->name('order.history'); // <-- Tambahan ini
-});
-Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-
-// Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-// Route::put('/profile/update-address/{id}', [ProfileController::class, 'updateAddress'])->name('profile.updateAddress');

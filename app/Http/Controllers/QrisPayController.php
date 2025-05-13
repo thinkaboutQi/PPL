@@ -1,17 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class QrisPayController extends Controller
 {
-    public function showQRISPayment()
+    public function showQRISPayment($order_id)
     {
-        // Ambil data order dari session
-        $order = session('order');
-
-        // Pastikan data order ada di session
+        
+        $order = \App\Models\Order::find($order_id);
+      
         if (!$order) {
             return redirect()->route('checkout.index')->with('error', 'Order tidak ditemukan.');
         }
