@@ -70,6 +70,9 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('user.dashboard');
     });
 
-    Route::get('/user/dashboard', [\App\Http\Controllers\UserDashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('/user/dashboard', function () {
+        return view('dashboard.user');
+    })->name('user.dashboard');
+
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
