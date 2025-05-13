@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\RegisterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -26,6 +27,12 @@ Auth::routes(['login' => false, 'register' => false]);
 Route::middleware('guest')->group(function () {
     Route::get('/login', Login::class)->name('login');
     Route::get('/register', Register::class)->name('register');
+
+    Route::get('/register/admin', [RegisterController::class, 'showAdminRegistrationForm'])->name('register.admin');
+    Route::post('/register/admin', [RegisterController::class, 'registerAdmin'])->name('register.admin.store');
+
+    Route::get('/register/user', [RegisterController::class, 'showUserRegistrationForm'])->name('register.user');
+    Route::post('/register/user', [RegisterController::class, 'registerUser'])->name('register.user.store');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -63,6 +70,6 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('user.dashboard');
     });
 
-    Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+    Route::get('/user/dashboard', [\App\Http\Controllers\UserDashboardController::class, 'index'])->name('user.dashboard');
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });

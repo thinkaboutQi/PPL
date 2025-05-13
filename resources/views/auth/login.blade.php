@@ -62,6 +62,12 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+
+                                @if (auth()->check() && auth()->user()->role === 'user')
+                                    <script>
+                                        window.location.href = "{{ route('user.dashboard') }}";
+                                    </script>
+                                @endif
                             </div>
                         </div>
                     </form>

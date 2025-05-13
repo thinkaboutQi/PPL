@@ -52,4 +52,50 @@ class RegisterController extends Controller
         auth()->logout(); // agar user tidak langsung login setelah register
         return redirect('/login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
+
+    public function showAdminRegistrationForm()
+    {
+        return view('auth.register-admin');
+    }
+
+    public function registerAdmin(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'admin',
+        ]);
+
+        return redirect()->route('login')->with('success', 'Admin registered successfully.');
+    }
+
+    public function showUserRegistrationForm()
+    {
+        return view('auth.register-user');
+    }
+
+    public function registerUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'user',
+        ]);
+
+        return redirect()->route('login')->with('success', 'User registered successfully.');
+    }
 }
