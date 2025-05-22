@@ -7,6 +7,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return view('homeadmin'); // Tampilan untuk admin
+        return view('dashboard/homeadmin'); // Tampilan untuk admin
     }
 }

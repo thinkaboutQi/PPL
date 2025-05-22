@@ -53,6 +53,11 @@
                                 Order
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('order') }}">
+                                History
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

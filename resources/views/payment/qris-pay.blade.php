@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appuser')
 
 @section('content')
 <div style="background-color: #1E388D; min-height: 100vh; padding-bottom: 50px;">

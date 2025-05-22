@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\ProdukAir; // Tambahkan ini agar bisa akses model ProdukAir
 
 class HomeController extends Controller
 {
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Ambil semua data produk air dari database
+        $produk = ProdukAir::all();
+
+        // Kirim data ke view 'home'
+        return view('dashboard/home', compact('produk'));
     }
 }

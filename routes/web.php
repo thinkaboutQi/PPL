@@ -41,6 +41,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
+    Route::get('/homeadmin', [App\Http\Controllers\AdminController::class, 'index'])->name('homeadmin');
+
 });
 
 // Checkout and order routes
@@ -74,5 +76,5 @@ Route::middleware(['auth'])->group(function () {
         return view('dashboard.user');
     })->name('user.dashboard');
 
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    //Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
