@@ -10,6 +10,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QrisPayController;
 use App\Http\Controllers\SimpanAlamatController;
+use App\Http\Controllers\OrderHistoryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -78,3 +79,7 @@ Route::middleware(['auth'])->group(function () {
 
     //Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+
+
+
+Route::get('/history', [OrderHistoryController::class, 'index'])->name('history');

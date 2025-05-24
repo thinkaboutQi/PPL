@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('order') }}">
+                        <a class="nav-link {{ request()->routeIs('history') ? : '' }}" href="{{ route('history') }}">
                                 History
                             </a>
                         </li>
