@@ -12,37 +12,8 @@
         </div>
     </div>
 
-    <!-- Search Section -->
-    <div class="mb-5">
-        <h4 class="fw-bold" style="color: #ffffff;">Temukan Toko Terdekat!</h4>
-        <div class="row g-3">
-            <div class="col-md-3">
-                <select class="form-select" style="border-radius: 10px;">
-                    <option selected>Kota</option>
-                    <option value="1">Jakarta</option>
-                    <option value="2">Bandung</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select class="form-select" style="border-radius: 10px;">
-                    <option selected>Kecamatan</option>
-                    <option value="1">Setiabudi</option>
-                    <option value="2">Cilandak</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <select class="form-select" style="border-radius: 10px;">
-                    <option selected>Kelurahan</option>
-                    <option value="1">Manggarai</option>
-                    <option value="2">Lebak Bulus</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                <button class="btn w-100" style="background-color: #ffffff; color: #1E388D; border-radius: 10px;">Cari <i class="bi bi-search"></i></button>
-            </div>
-        </div>
-    </div>
-</div>
+    {{-- Panggil Livewire component cari toko --}}
+    @livewire('cari-toko')
 
     <!-- List Item Section -->
  <!-- List Item Section -->

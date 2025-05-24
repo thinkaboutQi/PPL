@@ -19,5 +19,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(ProdukAirSeeder::class);
+        $this->call([
+            ProvinsiSeeder::class,
+            KabupatenSeeder::class,
+            KecamatanSeeder::class,
+            DepotSeeder::class,
+        ]);
     }
 }

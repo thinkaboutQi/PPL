@@ -14,7 +14,7 @@ class ProdukAirSeeder extends Seeder
     public function run()
     {
         // ProdukAir:factory(10)->Create();
-        ProdukAir::truncate();
+        // ProdukAir::truncate();
 
         ProdukAir::create([
             'nama_produk' => 'Jerigen Air Bersih',
