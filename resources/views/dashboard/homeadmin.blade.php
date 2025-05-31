@@ -3,6 +3,9 @@
 @section('content')
 @php
     $totalOrder = \App\Models\Order::count('id');
+    $orders = \App\Models\Order::with('items.ProdukAir')->latest()->get();
+    $inProgress = $orders->where('status', 'pending')->count();
+    $shipping = $orders->where('status', 'paid')->count();
 @endphp
 <div style="background: #2949A9; min-height: 100vh; padding: 0;">
     <div class="container py-4">
@@ -21,7 +24,7 @@
                     <img src="{{ asset('https://assets.onecompiler.app/42vbxdd3a/43kcd75av/Order%20(1).png') }}" alt="Order" style="width: 60px; margin-right: 24px; border: 3px solid #F15A29; border-radius: 4px;">
                     <div class="d-flex flex-column align-items-start">
                         <div class="fw-bold" style="font-size: 1.1rem;">In progress</div>
-                        <div class="display-4 fw-bold" style="color: #2949A9;">30</div>
+                        <div class="display-4 fw-bold" style="color: #2949A9;">{{ $inProgress }}</div>
                     </div>
                 </div>
             </div>
@@ -30,7 +33,7 @@
                     <img src="{{ asset('https://assets.onecompiler.app/42vbxdd3a/43kcd75av/Shipping.png') }}" alt="Shipping" style="width: 60px; margin-right: 24px;">
                     <div class="d-flex flex-column align-items-start">
                         <div class="fw-bold" style="font-size: 1.1rem;">Shipping</div>
-                        <div class="display-4 fw-bold" style="color: #2949A9;">25</div>
+                        <div class="display-4 fw-bold" style="color: #2949A9;">{{ $shipping }}</div>
                     </div>
                 </div>
             </div>
