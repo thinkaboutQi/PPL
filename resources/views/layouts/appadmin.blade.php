@@ -49,7 +49,7 @@
                             <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ route('homeadmin') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('order') }}">
+                            <a class="nav-link" href="#">
                                 Order
                             </a>
                         </li>
