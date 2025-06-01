@@ -61,7 +61,12 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item me-2">
+                            <button id="darkModeToggle" class="btn btn-outline-secondary" style="border-radius: 50%;" title="Toggle dark mode">
+                                <i class="bi bi-moon-fill"></i>
+                            </button>
+                        </li>
                         @guest
                             @if (Route::has('register'))
                                 <a class="btn text-white px-4 py-2" href="{{ route('login') }}" style="background-color: #1E388D; border-radius: 50px;">
@@ -109,8 +114,43 @@
             duration: 1000,
             once: true,
         });
+        // === Global Dark Mode Loader ===
+        function applyDarkMode() {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', applyDarkMode);
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'darkMode') applyDarkMode();
+        });
+        // === Dark Mode Toggle Button ===
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('darkModeToggle');
+            var icon = btn ? btn.querySelector('i') : null;
+            function updateIcon() {
+                if (!icon) return;
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.remove('bi-moon-fill');
+                    icon.classList.add('bi-sun-fill');
+                } else {
+                    icon.classList.remove('bi-sun-fill');
+                    icon.classList.add('bi-moon-fill');
+                }
+            }
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var isDark = document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('darkMode', isDark);
+                    updateIcon();
+                });
+                // Set correct icon on load
+                updateIcon();
+            }
+        });
     </script>
-
     <!-- Custom Page Scripts -->
     @stack('scripts')
 </body>

@@ -99,6 +99,18 @@
     duration: 1000,
     once: true,
   });
+  // === Global Dark Mode Loader ===
+  function applyDarkMode() {
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
+  }
+  document.addEventListener('DOMContentLoaded', applyDarkMode);
+  window.addEventListener('storage', function(e) {
+    if (e.key === 'darkMode') applyDarkMode();
+  });
 </script>
 </body>
 </html>

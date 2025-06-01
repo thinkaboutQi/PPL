@@ -69,7 +69,7 @@
 
                         <div class="mt-4 d-flex justify-content-between">
                             <a href="{{ route('home') }}" class="btn btn-outline-primary">Back to home</a>
-                            <a href="{{ route('order.history') }}" class="btn btn-primary">History Order</a>
+                            <a href="{{ route('history') }}" class="btn btn-primary">History Order</a>
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\HistoryAdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
     Route::get('/homeadmin', [App\Http\Controllers\AdminController::class, 'index'])->name('homeadmin');
-
+    Route::get('/admin/history', [App\Http\Controllers\HistoryAdminController::class, 'index'])->name('admin.history');
 });
 
 // Checkout and order routes
@@ -79,7 +80,6 @@ Route::middleware(['auth'])->group(function () {
 
     //Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
-
 
 
 Route::get('/history', [OrderHistoryController::class, 'index'])->name('history');

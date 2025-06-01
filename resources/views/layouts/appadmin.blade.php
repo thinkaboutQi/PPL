@@ -49,14 +49,22 @@
                             <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ route('homeadmin') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('order') }}">
+                            <a class="nav-link" href="#">
                                 Order
                             </a>
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.history') }}">
+                                History
                         </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item me-2">
+                            <button id="darkModeToggle" class="btn btn-outline-secondary" style="border-radius: 50%;" title="Toggle dark mode">
+                                <i class="bi bi-moon-fill"></i>
+                            </button>
+                        </li>
                         @guest
                             @if (Route::has('register'))
                                 <a class="btn text-white px-4 py-2" href="{{ route('login') }}" style="background-color: #1E388D; border-radius: 50px;">
@@ -70,18 +78,34 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                        Edit Profile
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="#" onclick="showLogoutModal(event)">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    <!-- Logout Modal -->
+                                    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                          <div class="modal-body text-center p-4">
+                                            <div style="font-size: 4rem; color: #2949A9;"><i class="bi bi-question-circle-fill"></i></div>
+                                            <div class="fw-bold mb-3 mt-2" style="font-size: 1.2rem; color: #222;">Apakah kamu ingin keluar?</div>
+                                            <div class="d-flex justify-content-center gap-3 mt-3">
+                                              <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Balik ke Home</button>
+                                              <button type="button" class="btn btn-primary px-4" onclick="document.getElementById('logout-form').submit();">Ya, Keluar</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <script>
+                                    function showLogoutModal(e) {
+                                        e.preventDefault();
+                                        var modal = new bootstrap.Modal(document.getElementById('logoutModal'));
+                                        modal.show();
+                                    }
+                                    </script>
                                 </div>
                             </li>
                         @endguest
@@ -96,7 +120,6 @@
     </div>
 
     @livewireScripts
-
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -104,8 +127,29 @@
             duration: 1000,
             once: true,
         });
+        // === Global Dark Mode Loader ===
+        function applyDarkMode() {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', applyDarkMode);
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'darkMode') applyDarkMode();
+        });
+        // === Dark Mode Toggle Button ===
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.getElementById('darkModeToggle');
+            if (btn) {
+                btn.addEventListener('click', function() {
+                    var isDark = document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('darkMode', isDark);
+                });
+            }
+        });
     </script>
-
     <!-- Custom Page Scripts -->
     @stack('scripts')
 </body>
