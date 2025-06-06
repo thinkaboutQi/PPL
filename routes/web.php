@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/order/history', [OrderController::class, 'history'])->name('order.history');
     Route::get('/homeadmin', [App\Http\Controllers\AdminController::class, 'index'])->name('homeadmin');
     Route::get('/admin/history', [App\Http\Controllers\HistoryAdminController::class, 'index'])->name('admin.history');
+    Route::get('/history', [OrderHistoryController::class, 'index'])->name('history');
 });
 
 // Checkout and order routes
@@ -82,4 +83,3 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/history', [OrderHistoryController::class, 'index'])->name('history');
