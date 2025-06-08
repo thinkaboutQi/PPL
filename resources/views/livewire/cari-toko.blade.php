@@ -42,19 +42,29 @@
     </div>
 
     <!-- Tampilkan hasil toko -->
-    <div>
-        @if($tokos->count())
-            <ul class="list-group">
-                @foreach ($tokos as $toko)
-                    <li class="list-group-item">
+<div>
+    @if($tokos->count())
+        <ul class="list-group">
+            @foreach ($tokos as $toko)
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
                         <strong>{{ $toko->nama_toko }}</strong><br>
                         {{ $toko->alamat }}<br>
                         Telp: {{ $toko->telepon }}
-                    </li>
-                @endforeach
-            </ul>
-        @else
-            <p class="text-white">Belum ada toko yang ditemukan.</p>
-        @endif
-    </div>
+                    </div>
+                    <div>
+                        <button
+                            wire:click="pilihToko({{ $toko->id }})"
+                            class="btn btn-sm"
+                            style="background-color: #1E388D; color: #fff;">
+                            Pilih Toko
+                        </button>
+                    </div>
+                </li>
+            @endforeach
+        </ul>
+    @else
+        <p class="text-white">Belum ada toko yang ditemukan.</p>
+    @endif
 </div>
+

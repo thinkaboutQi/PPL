@@ -10,17 +10,28 @@
         
         <!-- Form Lokasi -->
         <div class="bg-white border rounded shadow-sm p-3 me-2" style="width: 250px; pointer-events: auto;">
-            <h6 class="text-center fw-bold text-primary mb-3">Select Location</h6>
+            <h6 class="text-center fw-bold select-location-title mb-3">Select Location</h6>
             <form id="orderForm" method="POST" action="{{ route('checkout.store') }}">
                 @csrf
                 <div class="position-relative mb-3">
                     <div class="d-flex align-items-center gap-2">
                         <i class="bi bi-geo-alt-fill text-gray-600"></i>
                         <input type="text" id="fromLocation" name="alamat" placeholder="Enter location"
-                            class="form-control form-control-sm" autocomplete="off" required />
+                            class="form-control form-control-sm"
+                            autocomplete="off"
+                            required
+                            value="{{ old('alamat') }}"
+                        />
                     </div>
                     <ul id="fromSuggestions" class="list-group position-absolute w-100 mt-1 z-50"
                         style="max-height: 150px; overflow-y: auto; display: none;"></ul>
+                </div>
+
+                <!-- Field Toko Pengirim -->
+                <div class="mb-3">
+                    <label for="toko_pengirim" class="form-label">Toko Pengirim</label>
+                    <input type="text" id="toko_pengirim" name="toko_pengirim" class="form-control form-control-sm"
+                        value="{{ old('toko_pengirim', session('order.toko_pengirim')) }}" readonly>
                 </div>
                 
                 <!-- Hidden inputs for quantity -->
@@ -28,13 +39,13 @@
                     <input type="hidden" name="quantity[{{ $p->id }}]" id="quantity-{{ $p->id }}-input" value="0">
                 @endforeach
 
-                <button type="submit" class="btn btn-primary w-100 btn-sm">Place Order</button>
+                <button type="submit" class="btn w-100 btn-sm" style="background-color: #1E388D; color: #fff; border: none;">Place Order</button>
             </form>
         </div>
 
         <!-- Produk Air Horizontal -->
         <div class="bg-white border rounded shadow-sm p-3" style="pointer-events: auto; max-width: 700px; overflow-x: auto;">
-            <h6 class="fw-bold mb-3 text-center text-primary">Ukuran dan Jenis Air</h6>
+            <h6 class="fw-bold mb-3 text-center ukuran-jenis-title">Ukuran dan Jenis Air</h6>
             <div class="d-flex gap-3 flex-nowrap">
                 @foreach ($produk as $p)  
                     <div class="card text-center border-primary flex-shrink-0" style="width: 140px; padding: 10px;">
@@ -42,7 +53,7 @@
                         <div class="card-body p-2">
                             <img src="{{ asset($p->gambar) }}" alt="{{ $p->nama }}" class="img-fluid mb-2" style="max-height: 50px;">
                             <h6 class="fw-semibold small mb-1">{{ $p->nama_produk }}</h6>
-                            <p class="text-primary small mb-2">{{ $p->harga }}</p>
+                            <p class="small mb-2" style="color: #1E388D; font-weight: bold;">{{ $p->harga }}</p>
 
                             <!-- Quantity Controls - Adjusted with gap and align-items-center -->
                             <div class="d-flex gap-2 align-items-center justify-content-center flex-nowrap" style="width: 100%;">
@@ -57,6 +68,9 @@
         </div>
     </div>
 </div>
+
+@livewire('order-form', ['produk' => $produk])
+
 @endsection
 
 @push('styles')
@@ -86,10 +100,34 @@
     input[type="number"] {
         min-width: 60px;
     }
+
+    input[type="number"].form-control {
+        border: 2px solid #1E388D !important;
+        color: #1E388D !important;
+        box-shadow: none !important;
+        background-color: #fff !important;
+        font-weight: bold;
+    }
+    input[type="number"].form-control:focus {
+        border-color: #1E388D !important;
+        color: #1E388D !important;
+        box-shadow: 0 0 0 0.1rem #1E388D33 !important;
+    }
     
     /* Adjust card width to accommodate wider input */
     .card.text-center {
         width: 110px !important;
+    }
+
+    /* Judul Select Location dan Ukuran dan Jenis Air */
+    .select-location-title,
+    .ukuran-jenis-title {
+        color: #1E388D !important;
+        font-weight: bold;
+    }
+
+    .card.border-primary {
+        border-color: #1E388D !important;
     }
 </style>
 @endpush

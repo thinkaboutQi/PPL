@@ -46,7 +46,15 @@
                                 <label>Pin Alamat</label>
                                 <textarea name="pin_alamat" class="form-control" readonly>{{ session('order.alamat') }}</textarea>
                             </div>
+
+                            <!-- Field Detail Toko -->
+                            <div class="mb-3">
+                                <label>Detail Toko</label>
+                                <input type="text" name="detail_toko" class="form-control" 
+                                       value="{{ old('detail_toko', session('order.detail_toko')) }}" readonly>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
 
@@ -68,12 +76,12 @@
                                     </div>
                                 @endforeach
                             @else
-                                <p>Tidak ada produk.</p>
+                                <p>Tidak ada produk .</p>
                             @endif
 
                             <hr>
                             <div class="text-start">
-                                <p><strong>Pengiriman:</strong> Free</p>
+                                <p><strong>Pengiriman :</strong> Free</p>
                                 <p><strong>Total:</strong> 
                                     Rp {{ number_format(collect(session('order.items'))->sum(function($item) { 
                                         return $item['product']->harga * $item['quantity']; 
@@ -81,7 +89,7 @@
                                 </p>
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">Bayar Sekarang</button>
+                            <button type="submit" class="btn w-100" style="background-color: #1E388D; color: #fff; border: none;">Bayar Sekarang</button>
                         </div>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProdukAir; // Tambahkan ini agar bisa akses model ProdukAir
+use App\Models\Toko; // Tambahkan di atas
 
 class HomeController extends Controller
 {
@@ -26,8 +27,9 @@ class HomeController extends Controller
     {
         // Ambil semua data produk air dari database
         $produk = ProdukAir::all();
+        $toko = Toko::first(); // Atau sesuaikan querynya
 
         // Kirim data ke view 'home'
-        return view('dashboard/home', compact('produk'));
+        return view('dashboard.home', compact('produk', 'toko'));
     }
 }

@@ -47,7 +47,7 @@ class OrderController extends Controller
         Session::put('order.total_amount', $totalAmount);
 
         // Redirect ke halaman checkout
-        return redirect()->route('checkout.index');
+        return redirect()->route('checkout');
     }
 
     public function confirm($orderId)
@@ -60,7 +60,7 @@ class OrderController extends Controller
         $order->save();
 
         // Redirect atau tampilkan pesan sukses
-        return redirect()->route('checkout.index')->with('success', 'Pembayaran berhasil dikonfirmasi!');
+        return redirect()->route('checkout')->with('success', 'Pembayaran berhasil dikonfirmasi!');
     }
 
     public function history()

@@ -12,10 +12,17 @@ use Illuminate\Support\Facades\Session;
 class CheckoutController extends Controller
 {
     // Menampilkan halaman checkout
-    public function index()
+    public function index(Request $request)
     {
-        $order = Session::get('order');  // Mengambil data order yang ada di session
-        return view('checkout', compact('order'));
+        // Simpan alamat dan detail_toko ke session jika ada di URL
+        if ($request->has('alamat')) {
+            session(['order.alamat' => $request->alamat]);
+        }
+        if ($request->has('detail_toko')) {
+            session(['order.detail_toko' => $request->detail_toko]);
+        }
+
+        return view('checkout');
     }
 
     // Proses pembuatan order

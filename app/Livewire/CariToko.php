@@ -46,6 +46,19 @@ class CariToko extends Component
         $this->tokos = $query->get();
     }
 
+    public function pilihToko($tokoId)
+    {
+        $toko = \App\Models\Depot::findOrFail($tokoId);
+
+        // Simpan ke session
+        session([
+            'order.toko_pengirim' => $toko->nama_toko . ' - ' . $toko->alamat . ' (Telp: ' . $toko->telepon . ')'
+        ]);
+
+        // Redirect ke halaman order
+        return redirect()->route('order');
+    }
+
     public function render()
     {
         return view('livewire.cari-toko');
