@@ -64,7 +64,7 @@
                                 @endforeach
                             </td>
                             <td class="text-primary">{{ $order->catatan_pesanan ?? '-' }}</td>
-                            <td><a href="#" class="btn btn-primary w-100">Detail</a></td>
+                            <td><a href="{{ route('DetailOrder', ['id' => $order->id]) }}" class="btn btn-primary">Detail</a></td>
                         </tr>
                     @empty
                         <tr>

@@ -1,0 +1,88 @@
+    html, body {
+        height: 100%;
+        margin: 0;
+        background-color: #e5e5e5;
+    }
+
+    .detail-container {
+        background-color: #2949A9;
+        min-height: 100vh;
+        padding: 2rem;
+    }
+
+    .content-box {
+        background-color: #fff;
+        border-radius: 16px;
+        padding: 2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: relative;
+    }
+
+    .btn-kirim {
+        background-color:#1E388D !important;
+        color: white !important;
+        width: 100px;
+        position: absolute;
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+
+    .popup-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .popup-box {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        text-align: center;
+        width: 280px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .header-title {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .order-id-title {
+    color: rgba(30, 56, 141, 0.89); /* dari #1E388DE3 */
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    }
+
+    .input-biru {
+    color: #1E388D !important;            /* Warna teks biru */
+    border: 1px solid #1E388D !important; /* Border biru */
+    background-color: white !important; /* Latar */
+    font-weight: 600 !important;         /* Teks bold */
+    }
+
+    .btn-biru {
+    background-color: #1E388D !important; /* Biru custom */
+    color: white !important;              /* Teks putih */
+    border: none !important;
+    padding: 6px 12px !important;
+    border-radius: 4px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    }
+    
+    .btn-biru:hover {
+    background-color: #162f75 !important; /* Biru lebih gelap saat hover */
+    }
+
+    
