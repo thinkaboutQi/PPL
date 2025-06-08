@@ -81,31 +81,6 @@
                                     <a class="dropdown-item" href="#" onclick="showLogoutModal(event)">
                                         {{ __('Logout') }}
                                     </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                    <!-- Logout Modal -->
-                                    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-                                      <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                          <div class="modal-body text-center p-4">
-                                            <div style="font-size: 4rem; color: #2949A9;"><i class="bi bi-question-circle-fill"></i></div>
-                                            <div class="fw-bold mb-3 mt-2" style="font-size: 1.2rem; color: #222;">Apakah kamu ingin keluar?</div>
-                                            <div class="d-flex justify-content-center gap-3 mt-3">
-                                              <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Balik ke Home</button>
-                                              <button type="button" class="btn btn-primary px-4" onclick="document.getElementById('logout-form').submit();">Ya, Keluar</button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <script>
-                                    function showLogoutModal(e) {
-                                        e.preventDefault();
-                                        var modal = new bootstrap.Modal(document.getElementById('logoutModal'));
-                                        modal.show();
-                                    }
-                                    </script>
                                 </div>
                             </li>
                         @endguest
@@ -119,7 +94,48 @@
         </main>
     </div>
 
-    @livewireScripts
+    <!-- Logout Modal and Form (outside nav and dropdown) -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body text-center p-4">
+            <div style="font-size: 4rem; color: #2949A9;"><i class="bi bi-question-circle-fill"></i></div>
+            <div class="fw-bold mb-3 mt-2" style="font-size: 1.2rem; color: #222;">Apakah kamu ingin keluar?</div>
+            <div class="d-flex justify-content-center gap-3 mt-3">
+              <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Balik ke Home</button>
+              <button type="button" class="btn btn-primary px-4" id="logoutConfirmBtn">Ya, Keluar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
+    <script>
+    function showLogoutModal(e) {
+        e.preventDefault();
+        var modalEl = document.getElementById('logoutModal');
+        if (window.bootstrap && window.bootstrap.Modal) {
+            var modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        } else if (window.$ && window.$.fn.modal) {
+            // fallback for jQuery modal
+            $(modalEl).modal('show');
+        } else {
+            // fallback: just submit
+            document.getElementById('logout-form').submit();
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('logoutConfirmBtn');
+        if (btn) {
+            btn.onclick = function() {
+                document.getElementById('logout-form').submit();
+            };
+        }
+    });
+    </script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
