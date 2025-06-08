@@ -64,7 +64,11 @@
                                 @endforeach
                             </td>
                             <td class="text-primary">{{ $order->catatan_pesanan ?? '-' }}</td>
+<<<<<<< HEAD
                             <td><a href="{{ route('DetailOrder', ['id' => $order->id]) }}" class="btn btn-primary">Detail</a></td>
+=======
+                            <td><a href="{{ route('DetailOrder', ['id' => $order->id]) }}" class="btn btn-primary w-100">Detail</a></td>
+>>>>>>> cb47c339fe3c88d421722a23b8ea4ab8cf717ee8
                         </tr>
                     @empty
                         <tr>
