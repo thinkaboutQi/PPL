@@ -46,6 +46,13 @@ class OrderController extends Controller
         // Simpan total amount ke session
         Session::put('order.total_amount', $totalAmount);
 
+        session([
+            'order.alamat' => $request->alamat,
+            'order.toko_pengirim' => $request->toko_pengirim,
+            'order.detail_toko' => $request->toko_pengirim, // <-- ini penting!
+            // ...data lain...
+        ]);
+
         // Redirect ke halaman checkout
         return redirect()->route('checkout');
     }

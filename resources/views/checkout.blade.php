@@ -50,7 +50,7 @@
                             <!-- Field Detail Toko -->
                             <div class="mb-3">
                                 <label>Detail Toko</label>
-                                <input type="text" name="detail_toko" class="form-control" 
+                                <input type="text" name="detail_toko" class="form-control"
                                        value="{{ old('detail_toko', session('order.detail_toko')) }}" readonly>
                             </div>
                         </div>

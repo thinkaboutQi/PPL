@@ -69,8 +69,6 @@
     </div>
 </div>
 
-@livewire('order-form', ['produk' => $produk])
-
 @endsection
 
 @push('styles')
