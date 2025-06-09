@@ -31,7 +31,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label>Alamat</label>
+                                <label>Alamat Gedung</label>
                                 <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" value="{{ old('alamat', session('order.pin_alamat')) }}">
                                 @error('alamat') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
