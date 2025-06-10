@@ -19,6 +19,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HistoryAdminController;
 use App\Http\Controllers\DetailOrderController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 
 Route::get('/', function () {
@@ -84,5 +85,9 @@ Route::middleware(['auth'])->group(function () {
 
     //Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
+
+Route::post('/admin/order/kirim/{id}', [\App\Http\Controllers\Admin\OrderController::class, 'kirim'])->name('admin.order.kirim');
+
+
 
 
