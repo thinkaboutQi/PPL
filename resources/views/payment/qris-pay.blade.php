@@ -3,7 +3,7 @@
 @section('content')
 <div style="background-color: #1E388D; min-height: 100vh; padding-bottom: 50px;">
     <div class="container py-5">
-        <h1 class="mb-4 mt-0 text-white" style="font-family: 'Poppins', sans-serif;">Order Sukses!</h1>
+        <h1 class="mb-4 mt-0 text-white" style="font-family: 'Poppins', sans-serif;">Bayar Pesanan Kamu!</h1>
         <div class="row justify-content-center">
             <!-- Kolom QRIS -->
             <div class="col-md-5 mb-4 d-flex align-items-center justify-content-center">
@@ -16,7 +16,7 @@
                     <div class="d-flex justify-content-between mt-4">
                         <button id="whatsappChatBtn" class="btn btn-success" style="flex: 1; margin-right: 5px;">Chat WhatsApp</button>
                         <button id="downloadQrisBtn" class="btn btn-primary" style="flex: 1; margin: 0 5px;">Download QRIS</button>
-                        <button id="refreshPaymentBtn" class="btn btn-warning" style="flex: 1; margin-left: 5px;">Refresh</button>
+                        <button id="refreshPaymentBtn" class="btn btn-warning" style="flex: 1; margin-left: 5px;">Refresh Pembayaran</button>
                     </div>
                 </div>
             </div>
@@ -40,18 +40,18 @@
                         <hr>
 
                         <div class="d-flex justify-content-between">
-                            <strong>Total:</strong>
+                            <strong>Total :</strong>
                             <strong>Rp {{ number_format($order->total_harga, 0, ',', '.') }}</strong>
                         </div>
 
                         <!-- Detail tambahan -->
                         <div class="mt-3">
-                            <p><strong>Nama:</strong> {{ $order->nama ?? '-' }}</p>
-                            <p><strong>No. Telp:</strong> {{ $order->telp ?? '-' }}</p>
-                            <p><strong>Catatan Pesanan:</strong> {{ $order->catatan_pesanan ?? '-' }}</p>
-                            <p><strong>Alamat Gedung:</strong> {{ $order->alamat ?? '-' }}</p>
-                            <p><strong>Kode Pos:</strong> {{ $order->kode_pos ?? '-' }}</p>
-                            <p><strong>Pin Alamat:</strong> {{ $order->pin_alamat ?? '-' }}</p>
+                            <p><strong>Nama :</strong> {{ $order->nama ?? '-' }}</p>
+                            <p><strong>No. Telp :</strong> {{ $order->telp ?? '-' }}</p>
+                            <p><strong>Catatan Pesanan :</strong> {{ $order->catatan_pesanan ?? '-' }}</p>
+                            <p><strong>Alamat Gedung :</strong> {{ $order->alamat ?? '-' }}</p>
+                            <p><strong>Kode Pos :</strong> {{ $order->kode_pos ?? '-' }}</p>
+                            <p><strong>Pin Alamat :</strong> {{ $order->pin_alamat ?? '-' }}</p>
                         </div>
 
                         <div class="mt-3">

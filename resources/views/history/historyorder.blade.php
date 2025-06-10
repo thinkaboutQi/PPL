@@ -42,6 +42,7 @@
                             <th class="text-center align-middle" style="font-weight: bold; font-size: 1.1rem; border-right: 1px solid #bbb;">Tgl Pesanan</th>
                             <th class="text-center align-middle" style="font-weight: bold; font-size: 1.1rem; border-right: 1px solid #bbb;">Total Pesanan</th>
                             <th class="text-center align-middle" style="font-weight: bold; font-size: 1.1rem; border-right: 1px solid #bbb;">Pesanan</th>
+                            <th class="text-center align-middle" style="font-weight: bold; font-size: 1.1rem; border-right: 1px solid #bbb;">Status</th>
                             <th class="text-center align-middle" style="font-weight: bold; font-size: 1.1rem;">Total Harga</th>
                         </tr>
                     </thead>
@@ -60,11 +61,14 @@
                                     @endforeach
                                 </ul>
                             </td>
+                            <td class="text-center align-middle" style="border-right: 1px solid #eee;">
+                                {{ $order->status ?? '-' }}
+                            </td>
                             <td class="text-center align-middle">Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="text-center py-4">Tidak ada data pesanan.</td>
+                            <td colspan="5" class="text-center py-4">Tidak ada data pesanan.</td>
                         </tr>
                         @endforelse
                     </tbody>
