@@ -48,16 +48,19 @@
                     @foreach($orders->items as $item)
                         <li class="list-group-item d-flex justify-content-between align-items-center" style="border: 2px solid #1E388D; font-weight: bold;">
                         {{ $item->ProdukAir->nama_produk ?? '-' }} – <strong class="text-danger">{{ $item->quantity }}X</strong>
-                        <button class="btn btn-sm btn-biru">Done</button>
                         </li>
-
                     @endforeach
                 </ul>
             </div>
         </div>
 
-        {{-- Tombol Kirim di pojok kanan bawah --}}
-        <button class="btn btn-kirim" onclick="showPopup()">Kirim</button>
+        {{-- Tombol Kirim dan sudah bayar di pojok kanan bawah --}}
+        <div class="button-group">
+            <button id="btn-bayar" class="btn btn-secondary" onclick="enableKirim()">Sudah Bayar</button>
+            <form action="{{ route('admin.order.kirim', $orders->id) }}" method="POST" onsubmit="return showPopup();">@csrf
+            <button type="submit" class="btn btn-kirim">Kirim</button>
+</form>
+        </div>
     </div>
 </div>
 
@@ -71,10 +74,21 @@
 </div>
 
 <script>
+    function enableKirim() {
+        const kirimBtn = document.getElementById('btn-kirim');
+        kirimBtn.disabled = false;
+
+        const bayarBtn = document.getElementById('btn-bayar');
+        bayarBtn.classList.add('disabled');
+        bayarBtn.setAttribute('disabled', true);
+        bayarBtn.innerText = 'Sudah Dibayar';
+    }
+
     function showPopup() {
         const popup = document.getElementById('popup');
         popup.classList.remove('d-none');
         popup.classList.add('d-flex');
+        return true;
     }
 </script>
 @endsection
