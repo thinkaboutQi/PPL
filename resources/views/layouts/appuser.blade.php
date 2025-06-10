@@ -63,6 +63,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item me-2">
+                            <a id="darkmode"></a>
                             <button id="darkModeToggle" class="btn btn-outline-secondary" style="border-radius: 50%;" title="Toggle dark mode">
                                 <i class="bi bi-moon-fill"></i>
                             </button>

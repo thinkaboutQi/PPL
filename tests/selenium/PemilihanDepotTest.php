@@ -42,7 +42,7 @@ try {
     echo "📨 Submit form registrasi...\n";
     $driver->findElement(WebDriverBy::cssSelector('button[type=submit]'))->click();
 
-    $driver->wait(10)->until(WebDriverExpectedCondition::urlContains('/login'));
+    $driver->wait(10)->until(function($driver){ return strpos($driver->getCurrentURL(), '/login') !== false; });
     echo "✅ Register berhasil, masuk ke halaman login\n";
     sleep(1);
 
@@ -57,7 +57,7 @@ try {
     echo "➡️ Submit form login...\n";
     $driver->findElement(WebDriverBy::cssSelector('button[type=submit]'))->click();
 
-    $driver->wait(10)->until(WebDriverExpectedCondition::urlContains('/home'));
+    $driver->wait(10)->until(function($driver){ return strpos($driver->getCurrentURL(), '/home') !== false; });
     echo "✅ Login berhasil, masuk ke /home\n";
     sleep(1);
 
@@ -65,6 +65,22 @@ try {
     echo "🌍 Pilih Provinsi...\n";
     $provinsiDropdown = WebDriverBy::cssSelector('select[wire\\:model="provinsi_id"]');
     $driver->wait(10)->until(WebDriverExpectedCondition::presenceOfElementLocated($provinsiDropdown));
+    // Tunggu sampai opsi DKI Jakarta muncul
+    $driver->wait(10)->until(function($driver) use ($provinsiDropdown) {
+        $options = $driver->findElement($provinsiDropdown)->findElements(WebDriverBy::tagName('option'));
+        foreach ($options as $option) {
+            if (trim($option->getText()) === 'DKI Jakarta') {
+                return true;
+            }
+        }
+        return false;
+    });
+    // Debug: tampilkan semua opsi provinsi
+    $options = $driver->findElement($provinsiDropdown)->findElements(WebDriverBy::tagName('option'));
+    echo "Opsi provinsi yang ditemukan:\n";
+    foreach ($options as $option) {
+        echo "- " . $option->getText() . "\n";
+    }
     $provinsiSelect = new WebDriverSelect($driver->findElement($provinsiDropdown));
     $provinsiSelect->selectByVisibleText('DKI Jakarta');
     sleep(2);
@@ -96,7 +112,7 @@ try {
     $pilihTokoBtn = $driver->findElement(WebDriverBy::xpath("//button[contains(text(), 'Pilih Toko')]"));
     $pilihTokoBtn->click();
 
-    $driver->wait(10)->until(WebDriverExpectedCondition::urlContains('/order'));
+    $driver->wait(10)->until(function($driver){ return strpos($driver->getCurrentURL(), '/order') !== false; });
     echo "✅ Masuk ke halaman order\n";
     echo "🎉 Pemilihan depot berhasil!\n";
 
@@ -105,3 +121,6 @@ try {
 } finally {
     $driver->quit();
 }
+
+// Tidak ada perubahan kode. Pastikan database dan tabel sudah ada dengan menjalankan:
+// php artisan migrate

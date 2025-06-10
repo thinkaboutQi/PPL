@@ -11,30 +11,31 @@ $host = 'http://localhost:9515';
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome());
 
 // =====================
-// REGISTER
+// REGISTER ADMIN
 // =====================
 $driver->get('http://127.0.0.1:8000/register');
 $driver->wait(10)->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::id('email')));
 
 $uniq = time();
-$email = "user$uniq@gmail.com";
+$email = "admin@example.com";
 $password = '123123';
 
 $driver->findElement(WebDriverBy::id('email'))->sendKeys($email);
-$driver->findElement(WebDriverBy::id('name'))->sendKeys("User $uniq");
+$driver->findElement(WebDriverBy::id('name'))->sendKeys("Admin $uniq");
 $driver->findElement(WebDriverBy::id('password'))->sendKeys($password);
 $driver->findElement(WebDriverBy::id('password_confirmation'))->sendKeys($password);
 $driver->findElement(WebDriverBy::cssSelector('button[type=submit]'))->click();
 
 // Tunggu redirect ke /login
 $driver->wait(10)->until(
-    WebDriverExpectedCondition::urlContains('/login')
+    function ($driver) {
+        return strpos($driver->getCurrentURL(), '/login') !== false;
+    }
 );
-
-echo "✅ Register berhasil, masuk ke halaman login\n";
+echo "✅ Register admin berhasil, masuk ke halaman login\n";
 
 // =====================
-// LOGIN ULANG
+// LOGIN ADMIN
 // =====================
 $driver->wait(10)->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('input[placeholder="Email"]')));
 $driver->findElement(WebDriverBy::cssSelector('input[placeholder="Email"]'))->sendKeys($email);
@@ -50,7 +51,7 @@ $driver->wait(10)->until(
 
 $currentUrl = $driver->getCurrentURL();
 if (strpos($currentUrl, '/admin/dashboard') !== false) {
-    echo "✅ Login setelah register berhasil, masuk ke /admin/dashboard\n";
+    echo "✅ Login admin berhasil, masuk ke /admin/dashboard\n";
 } else {
     echo "❌ Login gagal, halaman saat ini: $currentUrl\n";
 }
