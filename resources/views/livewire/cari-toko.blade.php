@@ -34,9 +34,10 @@
 
         <!-- Tombol Cari -->
         <div class="col-md-3">
-            <button wire:click="cariToko" class="btn w-100" style="background-color: #ffffff; color: #1E388D; border-radius: 10px;">
-                Cari <i class="bi bi-search"></i>
-            </button>
+        <button id="cari-toko" wire:click="cariToko" class="btn w-100"
+        style="background-color: #ffffff; color: #1E38BD; border-radius: 10px;">
+        Cari 🔍
+    </button>
         </div>
 
     </div>
