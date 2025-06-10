@@ -8,13 +8,23 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderHistoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua order dengan relasi order_items
-        $orders = Order::with(['items.produkAir'])
-        ->where('user_id', Auth::id())
-        ->latest()
-        ->get();
+        $query = Order::with(['items.produkAir'])
+            ->where('user_id', Auth::id());
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('created_at', $request->tanggal);
+        }
+
+        if ($request->filled('produk')) {
+            $produk = strtolower($request->produk);
+            $query->whereHas('items.produkAir', function ($q) use ($produk) {
+                $q->whereRaw('LOWER(nama_produk) LIKE ?', ['%' . $produk . '%']);
+            });
+        }
+
+        $orders = $query->latest()->get();
         return view('history.historyorder', compact('orders'));
     }
 }

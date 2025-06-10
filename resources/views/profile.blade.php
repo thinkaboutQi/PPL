@@ -44,6 +44,7 @@
 
     .edit-btn:hover {
       background-color: #e0e0e0;
+      stroke :rgb(0, 0, 0)
     }
 
     .setting-item i {
@@ -168,8 +169,10 @@
 
   <h3 class="mb-3 fw-bold">Pengaturan</h3>
   <div class="p-4 settings-card mb-4">
-    <button id="darkModeBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100 mb-3" style="background: none; border: none;">
-      <i class="bi bi-moon-fill me-2"></i> Dark mode
+    <button id="darkModeBtn" class="setting-button flex-column align-items-start text-white mb-3">
+      <div>
+        <i class="bi bi-moon-fill me-2"></i> Dark mode
+      </div>
     </button>
     <button id="addressBtn" class="setting-button flex-column align-items-start text-white">
       <div>
@@ -177,19 +180,26 @@
       </div>
       <small id="addressContainer" class="ms-4 text-white-50"></small>
     </button>
-    <button id="helpCenterBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100 mb-3" style="background: none; border: none;">
-      <i class="bi bi-question-circle-fill me-2"></i> Pusat Bantuan
+    <button id="helpCenterBtn" class="setting-button flex-column align-items-start text-white mb-3">
+      <div>
+        <i class="bi bi-question-circle-fill me-2"></i> Pusat Bantuan
+      </div>
     </button>
-    <button id="securityBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100 mb-3" style="background: none; border: none;">
-      <i class="bi bi-shield-lock-fill me-2"></i> Keamanan akun
+    <button id="securityBtn" class="setting-button flex-column align-items-start text-white mb-3">
+      <div>
+        <i class="bi bi-shield-lock-fill me-2"></i> Keamanan akun
+      </div>
     </button>
-    <button id="termsBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100 mb-3" style="background: none; border: none;">
-      <i class="bi bi-file-earmark-text-fill me-2"></i> Syarat & Ketentuan
+    <button id="termsBtn" class="setting-button flex-column align-items-start text-white mb-3">
+      <div>
+        <i class="bi bi-file-earmark-text-fill me-2"></i> Syarat & Ketentuan
+      </div>
     </button>
-    <button id="logoutBtn" class="btn text-white d-flex align-items-center p-0 setting-item w-100" style="background: none; border: none;">
-      <i class="bi bi-box-arrow-right me-2"></i> Log out
+    <button id="logoutBtn" class="setting-button flex-column align-items-start text-white">
+      <div>
+        <i class="bi bi-box-arrow-right me-2"></i> Log out
+      </div>
     </button>
-
     <!-- Form Logout -->
     <form id="logoutForm" action="{{ route('logout') }}" method="POST" style="display: none;">
       @csrf

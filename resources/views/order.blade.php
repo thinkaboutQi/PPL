@@ -10,7 +10,7 @@
         
         <!-- Form Lokasi -->
         <div class="bg-white border rounded shadow-sm p-3 me-2" style="width: 250px; pointer-events: auto;">
-            <h6 class="text-center fw-bold select-location-title mb-3">Select Location</h6>
+            <h6 class="text-center fw-bold select-location-title mb-3">Alamat Penerima</h6>
             <form id="orderForm" method="POST" action="{{ route('checkout.store') }}">
                 @csrf
                 <div class="position-relative mb-3">
@@ -28,10 +28,13 @@
                 </div>
 
                 <!-- Field Toko Pengirim -->
+                <h6 class="text-center fw-bold select-location-title mb-3">Toko Pengirim</h6>
                 <div class="mb-3">
-                    <label for="toko_pengirim" class="form-label">Toko Pengirim</label>
-                    <input type="text" id="toko_pengirim" name="toko_pengirim" class="form-control form-control-sm"
-                        value="{{ old('toko_pengirim', session('order.toko_pengirim')) }}" readonly>
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="bi bi-shop text-gray-600"></i>
+                        <input type="text" id="toko_pengirim" name="toko_pengirim" class="form-control form-control-sm"
+                            value="{{ old('toko_pengirim', session('order.toko_pengirim')) }}" readonly>
+                    </div>
                 </div>
                 
                 <!-- Hidden inputs for quantity -->
@@ -39,13 +42,13 @@
                     <input type="hidden" name="quantity[{{ $p->id }}]" id="quantity-{{ $p->id }}-input" value="0">
                 @endforeach
 
-                <button type="submit" class="btn w-100 btn-sm" style="background-color: #1E388D; color: #fff; border: none;">Place Order</button>
+                <button type="submit" class="btn w-100 btn-sm" style="background-color: #1E388D; color: #fff; border: none;">Buat Order</button>
             </form>
         </div>
 
         <!-- Produk Air Horizontal -->
         <div class="bg-white border rounded shadow-sm p-3" style="pointer-events: auto; max-width: 700px; overflow-x: auto;">
-            <h6 class="fw-bold mb-3 text-center ukuran-jenis-title">Ukuran dan Jenis Air</h6>
+            <h6 class="fw-bold mb-3 text-center ukuran-jenis-title">Pilih Ukuran dan Jenis Air</h6>
             <div class="d-flex gap-3 flex-nowrap">
                 @foreach ($produk as $p)  
                     <div class="card text-center border-primary flex-shrink-0" style="width: 140px; padding: 10px;">
