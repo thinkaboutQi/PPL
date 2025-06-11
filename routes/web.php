@@ -85,4 +85,6 @@ Route::middleware(['auth'])->group(function () {
     //Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
 
+Route::get('/order/status/{id}', [OrderController::class, 'checkStatus'])->name('order.checkStatus');
+
 

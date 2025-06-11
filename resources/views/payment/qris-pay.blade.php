@@ -12,7 +12,7 @@
                     <h5 class="mb-3" style="color: #1E388D;">Scan QRIS untuk Pembayaran</h5>
                     <p class="mb-0" style="color: #555;">Silakan scan kode QR di atas menggunakan aplikasi pembayaran favorit Anda.</p>
 
-                    <!-- Buttons side by side -->
+                    <!-- Buttons -->
                     <div class="d-flex justify-content-between mt-4">
                         <button id="whatsappChatBtn" class="btn btn-success" style="flex: 1; margin-right: 5px;">Chat WhatsApp</button>
                         <button id="downloadQrisBtn" class="btn btn-primary" style="flex: 1; margin: 0 5px;">Download QRIS</button>
@@ -55,7 +55,7 @@
                         </div>
 
                         <div class="mt-3">
-                            <span class="badge {{ $order->status === 'confirmed' ? 'bg-success' : 'bg-warning text-dark' }}">
+                            <span id="orderStatusBadge" class="badge {{ $order->status === 'confirmed' ? 'bg-success' : 'bg-warning text-dark' }}">
                                 {{ $order->status === 'confirmed' ? 'Pembayaran Berhasil' : 'Pesanan sedang disiapkan' }}
                             </span>
                         </div>
@@ -77,7 +77,6 @@
 <script>
 document.getElementById('whatsappChatBtn').addEventListener('click', function () {
     let phone = '627776719079'; // Nomor WA admin tetap
-
     let message = `Halo, saya sudah melakukan pemesanan dengan detail sebagai berikut:%0A`;
     message += `Nama: {{ $order->nama ?? '-' }}%0A`;
     message += `No. Telp: {{ $order->telp ?? '-' }}%0A`;
@@ -103,7 +102,22 @@ document.getElementById('downloadQrisBtn').addEventListener('click', function ()
 });
 
 document.getElementById('refreshPaymentBtn').addEventListener('click', function () {
-    location.reload();
+    fetch("{{ route('order.checkStatus', $order->id) }}")
+        .then(response => response.json())
+        .then(data => {
+            const badge = document.getElementById('orderStatusBadge');
+            if (data.status === 'confirmed') {
+                badge.className = 'badge bg-success';
+                badge.textContent = 'Pembayaran Berhasil';
+            } else {
+                badge.className = 'badge bg-warning text-dark';
+                badge.textContent = 'Pesanan sedang disiapkan';
+            }
+        })
+        .catch(error => {
+            console.error("Gagal memuat status:", error);
+            alert("Gagal memuat status terbaru.");
+        });
 });
 </script>
 @endsection

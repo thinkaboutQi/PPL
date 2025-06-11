@@ -98,6 +98,7 @@ try {
 
     $driver->wait(10)->until(WebDriverExpectedCondition::urlContains('/order'));
     echo "✅ Masuk ke halaman order\n";
+    sleep(3);
     echo "🎉 Pemilihan depot berhasil!\n";
 
 } catch (Exception $e) {

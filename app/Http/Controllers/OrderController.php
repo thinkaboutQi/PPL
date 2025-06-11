@@ -79,4 +79,12 @@ class OrderController extends Controller
 
         return view('order.history', compact('orders'));
     }
+    public function checkStatus($id)
+    {
+        $order = \App\Models\Order::findOrFail($id);
+        return response()->json([
+            'status' => $order->status,
+        ]);
+    }
+    
 }
