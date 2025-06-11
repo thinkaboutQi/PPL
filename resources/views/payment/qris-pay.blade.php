@@ -46,12 +46,12 @@
 
                         <!-- Detail tambahan -->
                         <div class="mt-3">
-                            <p><strong>Nama :</strong> {{ $order->nama ?? '-' }}</p>
-                            <p><strong>No. Telp :</strong> {{ $order->telp ?? '-' }}</p>
-                            <p><strong>Catatan Pesanan :</strong> {{ $order->catatan_pesanan ?? '-' }}</p>
-                            <p><strong>Alamat Gedung :</strong> {{ $order->alamat ?? '-' }}</p>
-                            <p><strong>Kode Pos :</strong> {{ $order->kode_pos ?? '-' }}</p>
-                            <p><strong>Pin Alamat :</strong> {{ $order->pin_alamat ?? '-' }}</p>
+                            <p><strong>Nama             :</strong> {{ $order->nama ?? '-' }}</p>
+                            <p><strong>No. Telp         :</strong> {{ $order->telp ?? '-' }}</p>
+                            <p><strong>Catatan Pesanan  :</strong> {{ $order->catatan_pesanan ?? '-' }}</p>
+                            <p><strong>Alamat Gedung    :</strong> {{ $order->alamat ?? '-' }}</p>
+                            <p><strong>Kode Pos         :</strong> {{ $order->kode_pos ?? '-' }}</p>
+                            <p><strong>Pin Alamat       :</strong> {{ $order->pin_alamat ?? '-' }}</p>
                         </div>
 
                         <div class="mt-3">
@@ -76,7 +76,7 @@
 
 <script>
 document.getElementById('whatsappChatBtn').addEventListener('click', function () {
-    let phone = '627776719079'; // Nomor WA admin tetap
+    let phone = '6287776719079'; // Nomor WA admin tetap
     let message = `Halo, saya sudah melakukan pemesanan dengan detail sebagai berikut:%0A`;
     message += `Nama: {{ $order->nama ?? '-' }}%0A`;
     message += `No. Telp: {{ $order->telp ?? '-' }}%0A`;
@@ -84,7 +84,7 @@ document.getElementById('whatsappChatBtn').addEventListener('click', function ()
     message += `Alamat Gedung: {{ $order->alamat ?? '-' }}%0A`;
     message += `Kode Pos: {{ $order->kode_pos ?? '-' }}%0A`;
     message += `Pin Alamat: {{ $order->pin_alamat ?? '-' }}%0A`;
-    message += `%0ADetail order ada di aplikasi.`;
+    message += `%0ABerikut bukti pembayaran saya :`;
 
     let whatsappUrl = `https://wa.me/${phone}?text=${message}`;
     window.open(whatsappUrl, '_blank');
