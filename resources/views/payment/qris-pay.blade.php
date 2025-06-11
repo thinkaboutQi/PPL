@@ -55,8 +55,8 @@
                         </div>
 
                         <div class="mt-3">
-                            <span id="orderStatusBadge" class="badge {{ $order->status === 'confirmed' ? 'bg-success' : 'bg-warning text-dark' }}">
-                                {{ $order->status === 'confirmed' ? 'Pembayaran Berhasil' : 'Pesanan sedang disiapkan' }}
+                            <span id="orderStatusBadge" class="badge {{ $order->status === 'paid' ? 'bg-success' : 'bg-warning text-dark' }}">
+                                {{ $order->status === 'paid' ? 'Pembayaran Berhasil' : 'Pesanan sedang disiapkan' }}
                             </span>
                         </div>
                     </div>
