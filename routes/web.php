@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HistoryAdminController;
 use App\Http\Controllers\DetailOrderController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 
 
 Route::get('/', function () {
@@ -86,5 +87,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/order/status/{id}', [OrderController::class, 'checkStatus'])->name('order.checkStatus');
+Route::post('/admin/order/kirim/{id}', [\App\Http\Controllers\Admin\OrderController::class, 'kirim'])->name('admin.order.kirim');
+
+
 
 
