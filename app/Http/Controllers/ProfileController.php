@@ -36,14 +36,13 @@ class ProfileController extends Controller
 
         // Proses jika ada gambar baru
         if ($request->hasFile('profile_image')) {
-            // Hapus gambar lama jika ada
-            if ($user->profile_image && Storage::exists('public/' . $user->profile_image)) {
-                Storage::delete('public/' . $user->profile_image);
-            }
-
-            // Simpan gambar baru
+            // Simpan gambar baru ke storage/app/public/photos
             $path = $request->file('profile_image')->store('photos', 'public');
-            $user->profile_image = $path; // Simpan nama file gambar ke database
+            // Hapus gambar lama jika ada dan berbeda dengan yang baru
+            if ($user->profile_image && $user->profile_image !== $path && Storage::disk('public')->exists($user->profile_image)) {
+                Storage::disk('public')->delete($user->profile_image);
+            }
+            $user->profile_image = $path; // Simpan path relatif (misal: photos/namafile.jpg)
         }
 
         // Simpan perubahan data pengguna
