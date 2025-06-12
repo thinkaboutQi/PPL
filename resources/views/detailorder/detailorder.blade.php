@@ -54,12 +54,11 @@
             </div>
         </div>
 
-        {{-- Tombol Kirim dan sudah bayar di pojok kanan bawah --}}
+        {{-- Tombol Kirim di pojok kanan bawah --}}
         <div class="button-group">
-            <button id="btn-bayar" class="btn btn-secondary" onclick="enableKirim()">Sudah Bayar</button>
             <form action="{{ route('admin.order.kirim', $orders->id) }}" method="POST" onsubmit="return showPopup();">@csrf
             <button type="submit" class="btn btn-kirim">Kirim</button>
-</form>
+            </form>
         </div>
     </div>
 </div>
