@@ -130,7 +130,7 @@
 
   <div class="p-4 profile-card d-flex justify-content-between align-items-center flex-wrap mb-4">
     <div class="d-flex align-items-center">
-      <img src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) : 'https://via.placeholder.com/120' }}" alt="Foto Profil" class="profile-img me-4">
+      <img id="profilePreview" src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) . '?' . now()->timestamp : 'https://via.placeholder.com/120' }}" alt="Foto Profil" class="profile-img me-4">
       <div>
         <h4 class="mb-1 fw-bold">{{ $user->name }}</h4>
         <p class="mb-1">{{ $user->email }}</p>
@@ -158,7 +158,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Foto Profil</label>
-      <input type="file" name="profile_image" class="form-control">
+      <input type="file" name="profile_image" class="form-control" accept="image/*" onchange="previewProfileImage(event)">
     </div>
     <div class="mb-3">
       <label class="form-label">Alamat</label>
@@ -220,6 +220,18 @@
   function toggleEditForm() {
     const form = document.getElementById('editProfileForm');
     form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // Preview foto profil sebelum submit
+  function previewProfileImage(event) {
+    const input = event.target;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('profilePreview').src = e.target.result;
+    }
+    if(input.files && input.files[0]) {
+      reader.readAsDataURL(input.files[0]);
+    }
   }
 
   // Dark Mode Toggle
