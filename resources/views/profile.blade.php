@@ -144,6 +144,9 @@
   <!-- Form Edit -->
   <form id="editProfileForm" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="p-4 profile-card mb-4" style="display: none;">
     @csrf
+    <div class="mb-3 text-center">
+      <img id="editProfilePreview" src="{{ $user->profile_image ? asset('storage/' . $user->profile_image) . '?' . now()->timestamp : 'https://via.placeholder.com/120' }}" alt="Preview Foto Profil" class="profile-img mb-2">
+    </div>
     <div class="mb-3">
       <label class="form-label">Nama</label>
       <input type="text" name="name" class="form-control" value="{{ $user->name }}">
@@ -159,10 +162,6 @@
     <div class="mb-3">
       <label class="form-label">Foto Profil</label>
       <input type="file" name="profile_image" class="form-control" accept="image/*" onchange="previewProfileImage(event)">
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Alamat</label>
-      <input type="text" name="alamat" class="form-control" value="{{ $user->alamat }}">
     </div>
     <button type="submit" class="btn btn-light">Simpan Perubahan</button>
   </form>
@@ -222,12 +221,12 @@
     form.style.display = form.style.display === 'none' ? 'block' : 'none';
   }
 
-  // Preview foto profil sebelum submit
+  // Preview foto profil sebelum submit (khusus di form edit)
   function previewProfileImage(event) {
     const input = event.target;
     const reader = new FileReader();
     reader.onload = function(e) {
-      document.getElementById('profilePreview').src = e.target.result;
+      document.getElementById('editProfilePreview').src = e.target.result;
     }
     if(input.files && input.files[0]) {
       reader.readAsDataURL(input.files[0]);

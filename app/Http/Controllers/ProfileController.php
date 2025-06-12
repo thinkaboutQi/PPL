@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -16,41 +17,31 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-        $user = Auth::user();
+        $user = Auth::user(); // Ambil user yang sedang login
 
-        // Validasi input
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone_number' => 'nullable|string|max:15', // Validasi nomor telepon
-            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Validasi gambar
-            'alamat' => 'required|string|max:255',
+            'phone_number' => 'nullable|string|max:15',
+            'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Update data pengguna
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone_number = $request->phone_number; // Update nomor telepon jika ada
-        $user->alamat = $request->alamat; // Update alamat
-
-
-        // Proses jika ada gambar baru
+        // Proses upload gambar
         if ($request->hasFile('profile_image')) {
-            // Simpan gambar baru ke storage/app/public/photos
-            $path = $request->file('profile_image')->store('photos', 'public');
-            // Hapus gambar lama jika ada dan berbeda dengan yang baru
-            if ($user->profile_image && $user->profile_image !== $path && Storage::disk('public')->exists($user->profile_image)) {
+            // Hapus file lama jika ada
+            if ($user->profile_image) {
                 Storage::disk('public')->delete($user->profile_image);
             }
-            $user->profile_image = $path; // Simpan path relatif (misal: photos/namafile.jpg)
+
+            $image_path = $request->file('profile_image')->store('photos', 'public');
+            $validated['profile_image'] = $image_path;
         }
 
-        // Simpan perubahan data pengguna
-        $user->save();
+        $user->update($validated);
 
-        // Redirect setelah update berhasil
-        return redirect()->route('home')->with('success', 'Profile updated successfully.');
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully.');
     }
+
 
     public function showSavedAddresses()
     {

@@ -10,7 +10,7 @@ class ProvinsiSeeder extends Seeder
     public function run()
     {
         DB::table('provinsis')->insert([
-            ['id' => 1, 'nama' => 'DKI Jakarta'],
+            ['nama' => 'DKI Jakarta'],
         ]);
     }
 }
