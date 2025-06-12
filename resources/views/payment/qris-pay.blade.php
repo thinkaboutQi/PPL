@@ -74,8 +74,39 @@
     </div>
 </div>
 
+<!-- Ganti posisi popup alert QRIS ke pojok kiri bawah -->
+<div id="qrisDownloadAlert" style="display:none; position:fixed; bottom:30px; left:30px; z-index:9999;">
+    <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); padding:20px 40px 20px 20px; display:flex; align-items:center; gap:16px; min-width:220px; position:relative;">
+        <span style="color:#1E388D; font-size:1.1rem; font-weight:600;">QRIS telah di-download</span>
+        <button id="closeQrisAlert" style="background:none; border:none; font-size:1.5rem; color:#888; position:absolute; top:8px; right:12px; cursor:pointer;">&times;</button>
+    </div>
+</div>
+
+<!-- Popup alert WhatsApp dengan layout tengah dan background hitam transparan -->
+<div id="waAlert" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.4); z-index:10000; align-items:center; justify-content:center;">
+    <div style="background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.2); padding:24px 32px 20px 24px; min-width:260px; position:relative; max-width:90vw;">
+        <span style="color:#1E388D; font-size:1.1rem; font-weight:600;">Anda akan berpindah ke gateway WhatsApp</span>
+        <button id="closeWaAlert" style="background:none; border:none; font-size:1.5rem; color:#888; position:absolute; top:8px; right:12px; cursor:pointer;">&times;</button>
+        <div class="mt-3 text-center">
+            <button id="lanjutkanWaBtn" class="btn btn-success w-100">Lanjutkan</button>
+        </div>
+    </div>
+</div>
+
 <script>
 document.getElementById('whatsappChatBtn').addEventListener('click', function () {
+    // Tampilkan popup WhatsApp di tengah
+    var waAlert = document.getElementById('waAlert');
+    waAlert.style.display = 'flex';
+    waAlert.style.alignItems = 'center';
+    waAlert.style.justifyContent = 'center';
+});
+
+document.getElementById('closeWaAlert').addEventListener('click', function () {
+    document.getElementById('waAlert').style.display = 'none';
+});
+
+document.getElementById('lanjutkanWaBtn').addEventListener('click', function () {
     let phone = '6287776719079'; // Nomor WA admin tetap
     let message = `Halo, saya sudah melakukan pemesanan dengan detail sebagai berikut:%0A`;
     message += `Nama: {{ $order->nama ?? '-' }}%0A`;
@@ -88,6 +119,7 @@ document.getElementById('whatsappChatBtn').addEventListener('click', function ()
 
     let whatsappUrl = `https://wa.me/${phone}?text=${message}`;
     window.open(whatsappUrl, '_blank');
+    document.getElementById('waAlert').style.display = 'none';
 });
 
 document.getElementById('downloadQrisBtn').addEventListener('click', function () {
@@ -99,6 +131,14 @@ document.getElementById('downloadQrisBtn').addEventListener('click', function ()
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Tampilkan popup alert
+    document.getElementById('qrisDownloadAlert').style.display = 'block';
+});
+
+// Tutup popup alert saat klik icon silang
+document.getElementById('closeQrisAlert').addEventListener('click', function () {
+    document.getElementById('qrisDownloadAlert').style.display = 'none';
 });
 
 document.getElementById('refreshPaymentBtn').addEventListener('click', function () {
