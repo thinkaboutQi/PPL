@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Http\Controllers\AdminController;
@@ -89,6 +90,74 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/order/status/{id}', [OrderController::class, 'checkStatus'])->name('order.checkStatus');
 Route::post('/admin/order/kirim/{id}', [\App\Http\Controllers\Admin\OrderController::class, 'kirim'])->name('admin.order.kirim');
 
+// Route daftar invoice admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/invoice-list', function() {
+        $orders = \App\Models\Order::with(['user'])->latest()->get();
+        return view('dashboard.invoice-list', compact('orders'));
+    })->name('admin.invoice.list');
+});
 
+// Route untuk admin kirim invoice ke user
+Route::post('/admin/invoice/send/{order}', [App\Http\Controllers\Admin\OrderController::class, 'sendInvoice'])->name('admin.invoice.send');
+// Route detail invoice admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/invoice/{order}', function($order) {
+        $order = \App\Models\Order::with(['items.ProdukAir', 'user'])->findOrFail($order);
+        return view('dashboard.invoice', compact('order'));
+    })->name('admin.invoice.show');
+});
 
+// Route daftar invoice user (tampilan khusus invoice-user.blade.php)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/invoice-user', function() {
+        $invoices = \App\Models\Order::where('user_id', auth()->id())->latest()->get();
+        return view('dashboard.invoice-user', compact('invoices'));
+    })->name('user.invoice.user');
+});
+// Route lama tetap dipertahankan jika masih dipakai di tempat lain
 
+// Route detail invoice user
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/invoice/{order}', function($order) {
+        $order = \App\Models\Order::with(['items.ProdukAir', 'user'])->where('user_id', auth()->id())->findOrFail($order);
+        return view('dashboard.invoice', compact('order'));
+    })->name('user.invoice.show');
+});
+// Route report admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/report', function() {
+        return view('dashboard.report');
+    })->name('admin.report');
+});
+// Chat admin ke user
+use Illuminate\Http\Request;
+use App\Models\Chat;
+use App\Models\User;
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/chat', function(Request $request) {
+        return view('dashboard.chat-admin');
+    })->name('admin.chat');
+    Route::post('/admin/chat/send', function(Request $request) {
+        Chat::create([
+            'from_id' => auth()->id(),
+            'to_id' => $request->to_id,
+            'message' => $request->message,
+        ]);
+        return redirect()->route('admin.chat', ['user_id' => $request->to_id]);
+    })->name('admin.chat.send');
+});
+// Chat user ke admin
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user/chat', function() {
+        return view('dashboard.chat-user');
+    })->name('user.chat');
+    Route::post('/user/chat/send', function(\Illuminate\Http\Request $request) {
+        \App\Models\Chat::create([
+            'from_id' => auth()->id(),
+            'to_id' => $request->to_id,
+            'message' => $request->message,
+        ]);
+        return redirect()->route('user.chat', ['admin_id' => $request->to_id]);
+    })->name('user.chat.send');
+});

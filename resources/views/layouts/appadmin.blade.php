@@ -46,15 +46,28 @@
                     <!-- Middle of Navbar -->
                     <ul class="navbar-nav mx-auto" style="font-family: 'Poppins', sans-serif;">
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.chat') }}">Chat</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ route('homeadmin') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 Order
                             </a>
-                            <li class="nav-item">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.invoice.list') }}">
+                                <i class="bi bi-receipt"></i> Invoice
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.history') }}">
                                 History
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.report') }}">Report</a>
                         </li>
                     </ul>
 

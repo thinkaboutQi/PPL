@@ -29,12 +29,12 @@
 </head>
 <body class="font-[Poppins]">
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light sticky-top bg-transparent shadow-none" style="z-index: 10; backdrop-filter: blur(10px);">
+        <nav class="navbar navbar-expand-md navbar-light sticky-top bg-transparent shadow-none d-print-none" style="z-index: 10; backdrop-filter: blur(10px);">
             <div class="container">
                 <a class="navbar-brand fw-bold m-0" style="color: #1E388D;" href="{{ url('/') }}">
                     SIBESI
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <button class="navbar-toggler d-print-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -54,17 +54,26 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.invoice.user') }}">
+                                <i class="bi bi-receipt"></i> Invoice
+                            </a>
+                        </li>
+                        <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('history') ? : '' }}" href="{{ route('history') }}">
                                 History
                             </a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.chat') }}">
+                                <i class="bi bi-chat-dots"></i> Chat
+                            </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item me-2">
-                            <a id="darkmode"></a>
-                            <button id="darkModeToggle" class="btn btn-outline-secondary" style="border-radius: 50%;" title="Toggle dark mode">
+                            <a id="darkmode" class="d-print-none"></a>
+                            <button id="darkModeToggle" class="btn btn-outline-secondary d-print-none" style="border-radius: 50%;" title="Toggle dark mode">
                                 <i class="bi bi-moon-fill"></i>
                             </button>
                         </li>
@@ -101,7 +110,7 @@
             </div>
         </nav>
 
-        <main class="min-h-screen relative">
+        <main class="min-h-screen relative @if(Route::currentRouteName() !== 'user.invoice.show') d-print-none @endif">
             @yield('content')
         </main>
     </div>

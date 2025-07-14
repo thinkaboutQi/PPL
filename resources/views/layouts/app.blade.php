@@ -42,18 +42,52 @@
 
                 <!-- Middle of Navbar -->
                     <ul class="navbar-nav mx-auto" style="font-family: 'Poppins', sans-serif;">
-                                <li class="nav-item">
-                                    <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ url('/#home') }}">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/#order') }}">Order</a>
-                                </li>
+                        @if(auth()->check() && auth()->user()->role !== 'admin')
                             <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
-                                </li>
+                                <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ route('user.dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.chat') }}">Chat</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#order') }}">Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('order.history') }}">History</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
+                            </li>
+                        @elseif(auth()->check() && auth()->user()->role === 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ url('/#home') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#order') }}">Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ url('/#home') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#order') }}">Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
+                            </li>
+                        @endif
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <!-- Authentication Links -->
@@ -75,7 +109,6 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -95,22 +128,51 @@
     <!-- AOS JS -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({
-    duration: 1000,
-    once: true,
-  });
-  // === Global Dark Mode Loader ===
-  function applyDarkMode() {
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
-    } else {
-      document.body.classList.remove('dark-mode');
-    }
-  }
-  document.addEventListener('DOMContentLoaded', applyDarkMode);
-  window.addEventListener('storage', function(e) {
-    if (e.key === 'darkMode') applyDarkMode();
-  });
-</script>
-</body>
-</html>
+                        @auth
+                            @if(auth()->user()->role !== 'admin')
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ route('user.dashboard') }}">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/#order') }}">Order</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('order.history') }}">History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('user.invoice.user') }}"><i class="bi bi-receipt"></i> Invoice</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ url('/#home') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/#order') }}">Order</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold" style="color: #1E388D;" href="{{ url('/#home') }}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#order') }}">Order</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#about') }}">About Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('/#contact') }}">Contact</a>
+                            </li>
+                        @endauth
