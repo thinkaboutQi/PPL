@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appuser')
 
 @section('content')
 <div class="container py-4">
@@ -47,7 +47,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $invoice->invoice_number }}</td>
                                         <td>{{ $invoice->created_at->format('d-m-Y') }}</td>
-                                        <td>Rp{{ number_format($invoice->total,0,',','.') }}</td>
+                                        <td>Rp{{ number_format($invoice->total_harga,0,',','.') }}</td>
                                         <td>
                                             @if($invoice->status == 'paid')
                                                 <span class="badge bg-success">Lunas</span>

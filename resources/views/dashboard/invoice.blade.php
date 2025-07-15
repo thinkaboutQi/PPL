@@ -21,7 +21,7 @@
             <div><b>Tanggal:</b> {{ $order->created_at->format('Y-m-d H:i') }}</div>
             <div><b>Pembeli:</b> {{ $order->user->name ?? '-' }}</div>
             <div><b>Email:</b> {{ $order->user->email ?? '-' }}</div>
-            <div><b>Alamat:</b> {{ $order->user->alamat ?? '-' }}</div>
+            <div><b>Alamat:</b> {{ $order->alamat ?? '-' }}</div>
         </div>
         <div class="table-responsive">
             <table class="table table-bordered">
